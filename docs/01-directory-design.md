@@ -2,10 +2,12 @@
 
 > **Summary:** An Active Directory design that organizes accounts by security level instead of department, keeps admin and service accounts separate from everyday users, grants access through roles and attributes instead of copying coworkers, and syncs only what needs the cloud to Entra ID.
 
+> **About this lab:** Potomac Defense Systems is a fictional defense and space contractor I created for my IAM portfolio. Every person, account, program and piece of data is made up, and nothing is classified. The lab runs in my own Microsoft Entra ID tenant and Azure subscription.
+
 **Domain:** `ad.potomacdefense.internal`
 **Company:** ~300 employees + 40 subcontractors
 **Locations:** Fredericksburg, Dahlgren, Chantilly
-**Programs:** KESTREL, HARBOR, ANVIL
+**Programs:** Radar (radar sensors), Satellite (satellite ground systems), Shipboard (shipboard combat software)
 
 ## 1. OU Structure
 
@@ -89,11 +91,11 @@ Resource
 Example:
 
 ```text
-GG-Role-Kestrel-Engineers
+GG-Role-Radar-Engineers
         ↓
-DL-Share-Kestrel-CUI-Modify
+DL-Share-Radar-CUI-Modify
         ↓
-KESTREL CUI File Share
+Radar CUI File Share
 ```
 
 **Global Groups (`GG-Role-*`)** hold users based on their role.
@@ -117,7 +119,7 @@ Example:
 Jordan Carter
 ├── Department: Engineering
 ├── Office: Dahlgren
-├── Program: KESTREL
+├── Program: Radar
 └── US Person: Yes
 ```
 
@@ -141,8 +143,8 @@ jordan.carter
 t0-jcarter
 svc-programhub-sql
 FRD-LT-014
-GG-Role-Kestrel-Engineers
-DL-Share-Kestrel-CUI-Modify
+GG-Role-Radar-Engineers
+DL-Share-Radar-CUI-Modify
 ```
 
 ## 6. Entra ID Sync
@@ -214,4 +216,3 @@ This design replaces manually copying another employee's permissions with a stru
 * **Sign-in names:** the lab doesn't own a public domain, so synced users get `@<tenant>.onmicrosoft.com` names in Entra ID. In production the domain would match the company's email domain.
 * **Cloud:** contractors handling CUI often use Microsoft's government cloud (GCC High). This lab uses the commercial cloud.
 * **One admin:** Jordan Carter holds all three tier accounts because the lab has one administrator. In production, different people hold different tiers.
-* **Fictional data:** every person, account and program is fictional. Nothing is classified.
