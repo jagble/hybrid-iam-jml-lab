@@ -1,0 +1,6 @@
+*.pfx
+*.pem
+*.key
+*.cer
+.env
+*.secret
