@@ -24,7 +24,7 @@ My notes while building this project.
 - Program comes from an account attribute instead of an OU, so moving between programs is an attribute change, not an account move.
 - Finance + AP is a toxic combination: one person could create a fake vendor and approve its invoice. The JML engine denies it by default. Exceptions need approval from outside the conflict, a time limit and a compensating control.
 
-Step 3 — Synthetic HR roster (Oct 2)
+## Step 3 — Synthetic HR roster (Oct 2)
 
 Did: Created data/hr-roster.csv with 26 fictional PDS people. It stands in for an HR system export (like Workday) and is the source of truth the JML engine will read.
 
@@ -35,7 +35,8 @@ Design choices:
 Accounts are matched to HR records by EmployeeID, never by name. Names change (marriage) and repeat.
 Six planted test cases: missing CUI training, non-US person on a program, program access not approved, future start date, terminated employee, and a subcontractor whose contract ended but HR still shows Active.
 Generated with LLM assistance; the test cases were chosen deliberately.
-Step 4 — Budget and domain controller VM (Oct 2)
+
+##Step 4 — Budget and domain controller VM (Oct 2)
 
 Did: Set an Azure budget ($75, alerts at $25 / $50 / $75 plus a forecast alert), then built FRD-DC-01 in Azure with nightly auto-shutdown.
 
@@ -51,7 +52,7 @@ Fixed: Exported the subscription quota report, identified families with availabl
 
 Lesson: A size has to pass three separate gates (regional capacity, subscription size restrictions, family quota). And confirm a resource's region on its Overview page instead of trusting what I picked in the wizard.
 
-Step 5 — Securing admin access to the VM (Oct 2)
+## Step 5 — Securing admin access to the VM (Oct 2)
 
 Did: Removed public RDP access open to the internet. Used Azure Bastion temporarily, then switched to RDP allowed only from my home IP.
 
@@ -61,7 +62,7 @@ Broke: The free Bastion Developer tier wasn't available on my subscription, and 
 
 Fixed: Used Bastion Basic for one session (it bills hourly even when VMs are off, so I deleted it at the end of the session). Now RDP is allowed only from my home IP, and VMs are stopped (deallocated) after each session.
 
-Step 6 — Promoting the first domain controller (Oct 2)
+## Step 6 — Promoting the first domain controller (Oct 2)
 
 Did:
 
@@ -78,13 +79,13 @@ Fixed: Switched the NIC to obtain DNS automatically so DNS is managed in one pla
 
 Note: The "cannot create DNS delegation" warning is expected. .internal has no parent zone to delegate from.
 
-Step 7 — OU structure (Oct 2)
+## Step 7 — OU structure (Oct 2)
 
 Did: Created the 21-OU structure from docs/01-directory-design.md under PDS, with accidental-deletion protection on.
 
 Why: OUs are where delegation and Group Policy apply. Splitting by tier and object type (not department) keeps admin accounts out of reach of helpdesk delegation. PDS accounts don't use the default Users/Computers containers, which can't take Group Policy or delegation.
 
-Step 8 — Tiered admin accounts (Oct 2–3)
+## Step 8 — Tiered admin accounts (Oct 2–3)
 
 Did: Created t0-jagble (Tier0\Admins, member of Domain Admins), t1-jagble (Tier1\Admins) and t2-jagble (Tier2\Admins). Each has its own password, a display name showing the tier, and a description linking it to its owner (josh.agble, EmployeeID 100110). Switched all admin work from the built-in account to t0-jagble.
 
@@ -94,7 +95,7 @@ Broke: The first admin account kept the display name "Josh Agble," which would l
 
 Fixed: Renamed and set display names to Josh Agble (Tier 0/1/2).
 
-Step 9 — Admin groups and role/resource groups (Oct 3)
+## Step 9 — Admin groups and role/resource groups (Oct 3)
 
 Did:
 
@@ -108,7 +109,8 @@ Notes:
 
 No group is nested into Domain Admins. Nested privileged groups are how hidden admin paths form.
 The script was drafted with LLM assistance; I reviewed and ran it and verified the results in ADUC.
-Step 10 — Helpdesk password-reset delegation (Oct 3)
+
+##Step 10 — Helpdesk password-reset delegation (Oct 3)
 
 Did: Used the Delegate Control wizard on PDS\People to give GG-T2-Helpdesk only "Reset user passwords and force password change at next logon."
 
@@ -124,7 +126,7 @@ Broke: Test 1 first failed with "Cannot find an object with identity," because I
 
 Fixed: Corrected the logon name to test.helpdesk (both logon name fields) and re-ran. Deleted the test account afterward.
 
-Step 11 — Entra Connect server (Oct 3–4)
+## Step 11 — Entra Connect server (Oct 3–4)
 
 Did:
 
@@ -138,7 +140,7 @@ Broke: The 11 PM auto-shutdown ended my session mid-work.
 
 Fixed: Nothing was lost, since AD changes save immediately. Moved auto-shutdown later for late sessions.
 
-Step 12 — Entra Connect Sync (Oct 4)
+## Step 12 — Entra Connect Sync (Oct 4)
 
 Did:
 
