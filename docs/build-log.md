@@ -56,7 +56,7 @@ My notes while building this project. Each step covers what I did, why, and anyt
 
 ### Securing admin access (Oct 2)
 - RDP was open to the whole internet when the VM was created, so I removed that rule
-- **Broke:** the free Bastion tier wasn't available on my subscription, and my work network blocks RDP
+- **Broke:** the free Bastion tier wasn't available on my subscription, and RDP wasn't available on my current pc as I was away from home.
 - **Fixed:** used paid Bastion for one session and deleted it after. Now RDP is allowed only from my home IP, and VMs are stopped after every session
 
 ### Promoting the domain controller (Oct 2)
