@@ -125,3 +125,21 @@ My notes while building this project. Each step covers what I did, why, and anyt
 - **Result:** all 13 role groups show in Entra as **Source: Windows Server AD**. No resource groups, admin groups or admin accounts synced
 - Downloaded the installer on the sync server from Microsoft's portal only, as a one-time exception to "no browsing on Tier 0"
 - Deleted a leftover cloud group from another course so the tenant only has PDS objects
+
+## 1.5 Lifecycle automation
+ 
+### Joiner (Oct 4)
+- Built `scripts/03-joiner.ps1` in five small pieces: read the HR roster → match people to AD by EmployeeID → decide create or skip → decide groups → create
+- Ran every piece **read-only** first and checked the decisions before turning on the part that makes changes (`$DryRun` switch)
+- **Results:**
+  - 24 accounts created (23 employees, 1 subcontractor), each with a random temporary password that must be changed at first sign-in
+  - 2 skipped: Brian (HR says Terminated) and Erin (contract end date passed, even though HR still showed her as Active)
+  - Hannah created **disabled** until her start date
+  - Program access **denied** for 3 people, with the reason logged: no CUI training, not a US person, not approved by the PM
+  - Synced to Entra: `GG-Role-Radar-Engineers` shows exactly Aisha, Ben, Carlos and Jordan
+- **Broke:** the server clock was on UTC, so at 9 PM Eastern it already thought it was the next day. Hannah would have been enabled a day early
+- **Fixed:** set the server time zone to Eastern before running anything
+- **Broke:** a leftover test account from the helpdesk test was still in People
+- **Fixed:** deleted it before syncing to Entra
+- **Learned:** synced groups are read-only in Entra (you can't add members there). AD is the source of truth, and changes flow up
+- Script drafted with LLM help; I reviewed it, ran each piece, and verified the results in ADUC and Entra
