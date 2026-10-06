@@ -143,3 +143,79 @@ My notes while building this project. Each step covers what I did, why, and anyt
 - **Fixed:** deleted it before syncing to Entra
 - **Learned:** synced groups are read-only in Entra (you can't add members there). AD is the source of truth, and changes flow up
 - Script drafted with LLM help; I reviewed it, ran each piece, and verified the results in ADUC and Entra
+
+### Mover (Oct 6)
+- Built `scripts/04-mover.ps1`. It compares every existing account to HR and fixes three kinds of drift: start date arrived, program changed, job-role (birthright) groups wrong
+- Same safety pattern as the joiner: every piece ran read-only first, and a `$DryRun` switch controls changes
+- **Start date:** Hannah's start date arrived, so the mover enabled her and cleared the "Pre-start" note
+  - It only re-enables accounts **it** disabled (the "Pre-start" note). Any other disabled account gets flagged for review, since security may have disabled it on purpose
+- **Program transfer, done by hand first:** Aisha moved from Radar to Shipboard, and the Shipboard PM hadn't approved her yet
+  - In ADUC, I changed her program attribute and removed Radar. I did **not** grant Shipboard yet
+  - Then I ran the mover read-only to check my manual work
+- **Broke:** I removed the wrong group by hand (`GG-Role-Engineers`, her birthright group, instead of Radar)
+- **Caught:** the mover flagged that she still had Radar, but **missed** the lost Engineers group, because it only compared program groups
+- **Fixed:** added a birthright check, confirmed it flagged the missing group, then restored it by hand. The birthright check also confirmed the other 23 accounts matched HR
+- **PM approval, done by the script:** changed `ProgramApproved` to Yes in HR. The mover added her to `GG-Role-Shipboard-Engineers`, and a second run found nothing left to fix
+- **Broke (my edit):** while adding the enable step, I replaced the line that checks the start date. The script failed to parse, which was lucky, because it would have enabled future hires early. Fixed by replacing the whole file instead of editing lines
+- **Bug:** the first version reported Program Managers as "no program access." PMs own a program, but program data access is for engineers only. Fixed by checking the department
+- **Managers:** linked all 23 people who have a manager in HR (by ManagerID → EmployeeID, never by name). Managers are who approve and review their team's access, so access reviews depend on this field
+- **Verified in Entra** after a sync: Aisha is gone from `GG-Role-Radar-Engineers` and in `GG-Role-Shipboard-Engineers`, and Hannah shows as Enabled. No changes were made in the cloud by hand
+- **Broke:** my manual sync failed with "Sync is already running." The automatic cycle had started when the server booted. Checked `Get-ADSyncScheduler`, waited, and re-ran it
+- **Design choice:** removals run before adds, so a failure partway through leaves someone with too little access, not too much
+- **Learned:** manual changes need a check afterward, and a check is only as good as what it compares
+### Manual joiner and leaver (Oct 6)
+- Before automating the leaver, I did the full process **by hand** to learn what each step is for
+- **Manual joiner:** created Brian Keller and Erin Walsh in ADUC as if they'd been hired years ago (they're the leaver test cases). Set every field the joiner script sets: logon name, office, title, department, company, manager, `employeeID`, `employeeType`, `division` and birthright + program groups
+  - Verified both against the HR roster with a read-only check. Erin correctly got `GG-Role-Subcontractors` instead of `GG-Role-Engineers`
+- **Manual leaver (Erin):** her contract ended 2026-09-30, but HR still showed her as Active
+  1. Screenshotted her groups first (record for audit or rehire), then removed all role groups
+  2. Disabled the account and reset the password to a random value
+  3. Description: who disabled it, when and why
+  4. Cleared her manager, so she drops out of her manager's reviews
+  5. Moved her to `PDS\Disabled`
+  6. **Revoked her sessions in Entra**, without waiting for the sync
+- **Verified in Entra:** Account status Disabled, 0 group memberships
+- **Learned:**
+  - *Locked out* (too many bad passwords, a helpdesk unlock) is not the same as *disabled* (an admin turned the account off). I mixed these up at first
+  - Disabling in AD doesn't end cloud sessions right away. Entra only learns at the next sync, and existing tokens keep working, so revoking sessions closes that gap
+  - `Disabled` is in the sync scope on purpose. If the account left the sync scope, Entra would delete the cloud account instead of showing it as disabled
+### Graph access for the engine (Oct 6)
+- The leaver needs to revoke Entra sessions with no person signing in, so the engine got its own identity: app registration `PDS-JML-Engine`
+- **Certificate, not a client secret.** Self-signed certificate created on FRD-DC-01 with a **non-exportable** private key, so the key can't be copied off the server. 6-month expiry, so rotation is forced. Only the public `.cer` was uploaded to Entra. 0 client secrets
+- **Least privilege:** removed the default delegated `User.Read` and granted only two application permissions:
+  - `User.Read.All` (find the person by employeeId)
+  - `User.RevokeSessions.All` (sign them out)
+  - If the certificate were stolen, an attacker could read the user list and sign people out. They couldn't create admins, reset passwords or delete anyone. Broad permissions like `Directory.ReadWrite.All` were the easy option and the wrong one
+- Installed only `Microsoft.Graph.Authentication` (not the full Graph SDK) on the DC. This is the second controlled internet exception on Tier 0: one signed Microsoft module from the official PowerShell Gallery
+- **Verified:** signed in as the app (`AuthType: AppOnly`, exactly two scopes) and looked up a user by employeeId
+- **Broke:** the first lookup by employeeId returned **nothing, with no error**, even though the user existed and employeeId was synced (checked by listing users)
+- **Fixed:** filtering on employeeId is an *advanced query* in Graph. It needs a `ConsistencyLevel: eventual` header plus `$count=true`
+- **Learned:** an empty result can look exactly like "this person doesn't exist." In a leaver, that silent miss would leave someone signed in, so the engine must treat "not found in Entra" as an error to report, never as "nothing to do"
+### Leaver + exposure window (Oct 6)
+- Built `scripts/05-leaver.ps1`: same steps as my manual leaver for Erin, in a deliberate order
+  - **Cut access first:** disable, scramble password, revoke Entra sessions (via Graph)
+  - **Clean up after:** record groups, remove groups, description, clear manager, move to `Disabled`
+  - If the script failed halfway, the person would be locked out with cleanup left, not cleaned up but still able to sign in
+- Leavers = HR status Terminated **or** end date passed (catches contractors HR forgot to terminate)
+- Every step is timestamped to a CSV log in `C:\PDS\logs\`. "Not found in Entra" is logged as an **ERROR**, not skipped
+- **Dry run:** Brian processed, and Erin skipped as "already offboarded," so the script respected my manual work
+- **Setup for the test:** gave Brian a known password and signed in as him. Security defaults forced MFA registration with no skip, so I didn't register a fake user on my phone. Entra still logged the attempt as **Interrupted** (password accepted, stopped at MFA setup)
+- **Measured timeline (real run):**
+| Time | Event | After leaver |
+|---|---|---|
+| 06:25:50 | Sign-in as Brian: password **accepted** (Interrupted at MFA setup) | before |
+| 06:35:50 | Last scheduled sync before the leaver ran | before |
+| **06:36:57** | Leaver: AD disabled, password scrambled | 0 s |
+| 06:36:58 | Entra sessions revoked via Graph | 1 s |
+| 06:38:05 | Sign-in with old password **rejected** (50126, invalid password) | 68 s |
+| 06:40:01 | Entra: `AccountEnabled` true → false (forced delta sync) | 3 min 4 s |
+ 
+- **Results:**
+  - Existing sessions: killed in **1 second**
+  - Old password: rejected in the cloud within **68 seconds** (password hash sync runs every 2 min on its own)
+  - Account shown as disabled in Entra: **3 min 4 s** with a forced sync. On the 30-minute schedule (last sync 06:35:50), it would have been **~29 minutes**
+- **Learned:**
+  - "Disabled in AD" is not "out of the cloud." There are three separate clocks: sessions (revoke), password (hash sync) and account state (full sync)
+  - A synced user's enabled state can't be changed in Entra directly, because AD is the source of truth, so the fix for the last clock is triggering a sync, not editing the cloud
+- **Next improvement:** have the leaver trigger a delta sync on FRD-SYNC-01 itself, so the ~29 minute window doesn't depend on someone remembering
+ 
