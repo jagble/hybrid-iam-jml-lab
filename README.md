@@ -4,7 +4,7 @@
 
 I built the identity foundation for a fictional defense contractor, Potomac Defense Systems (PDS): a tiered AD domain synced to Entra ID, an engine that creates, changes and removes access based on an HR file, and the controls around it (separation of duties, measured offboarding, a privileged access review). Then I tested it with 340 people and planted a hidden Domain Admin to see if my review would catch it.
 
-> **About this lab:** PDS is a fictional defense and space contractor. Every person, account, program and piece of data is made up, and nothing is classified. The lab runs in my own Azure subscription and Entra ID tenant. HR data was generated with LLM help, and the PowerShell scripts were drafted with LLM help. I designed the controls, ran every script, broke things, fixed them and verified the results myself. The [build log](docs/build-log.md) has the full story, including the mistakes.
+> **About this lab:** PDS is a fictional defense and space contractor. Every person, account, program and piece of data is made up, and nothing is classified. The lab runs in my own Azure subscription and Entra ID tenant. HR data was generated with LLM help, and the PowerShell scripts were drafted with LLM help. I designed the controls, ran every script, broke things, fixed them and verified the results myself. The [six walkthroughs](#walk-through-the-lab) have the full story, including the mistakes.
 
 ---
 
@@ -18,6 +18,23 @@ I built the identity foundation for a fictional defense contractor, Potomac Defe
 | **Least privilege for automation** | Graph app: 2 permissions. Engine account: no admin rights anywhere, delegated only on `People`, `Disabled` and role groups |
 | **Separation of duties** | Finance + Accounts Payable conflict: denied, allowed only with a valid exception, denied when the "approval" came from the person's own manager. 3/3 tests passed |
 | **Privileged access review** | Found a Domain Admin hidden behind a nested group, plus standing Enterprise/Schema Admins I didn't plant, plus an AdminSDHolder leftover that broke helpdesk resets. All fixed and re-verified |
+
+## Walk through the lab
+
+The build is split into six parts. Each one is a step-by-step walkthrough in the order I did it, with annotated screenshots, including what broke and how I fixed it. Start at 1.1 and follow the links at the bottom of each page.
+
+| Part | What happens | Highlights |
+|:---:|---|---|
+| [**1.1**<br>Plan and design](parts/1.1-plan-and-design/README.md) | OU design by security tier, a role map, and an HR roster with six planted edge cases | Why "make her like Bob" is the wrong way to grant access |
+| [**1.2**<br>Build the domain](parts/1.2-build-the-domain/README.md) | Budget alerts, a domain controller in Azure, DNS, 21 OUs | Three failed VM deployments, and what they taught me about quotas |
+| [**1.3**<br>Admin tiering](parts/1.3-admin-tiering/README.md) | `t0-`/`t1-`/`t2-` admin accounts, role and resource groups (AGDLP), helpdesk delegation | Tested as the helpdesk: allowed on a user, **Access is denied** on an admin |
+| [**1.4**<br>Hybrid identity](parts/1.4-hybrid-identity/README.md) | Entra Connect Sync on its own Tier 0 server, OU filtering, just-in-time Enterprise Admin | Only 3 OUs reach the cloud. Admin accounts never do |
+| [**1.5**<br>Lifecycle automation](parts/1.5-lifecycle-automation/README.md) | The JML engine: joiner, mover, leaver, SoD check, Graph app, gMSA, 340-person scale test | A fired employee's old password still worked at **79 s**. My "dry run" wasn't dry |
+| [**1.6**<br>Security review](parts/1.6-security-review/README.md) | A planted hidden Domain Admin, a review that traces nesting, event 4728, AdminSDHolder | Found my planted problem, plus two I didn't plant |
+
+![Measured offboarding timeline](evidence/screenshots/1.5-leaver-exposure-timeline.png)
+
+---
 
 ## Architecture
 
@@ -50,12 +67,12 @@ I built the identity foundation for a fictional defense contractor, Potomac Defe
 
 | Path | What it is |
 |---|---|
+| [`parts/`](parts/) | The six walkthroughs, each with its own annotated screenshots |
 | [`docs/01-directory-design.md`](docs/01-directory-design.md) | OU design by security tier, admin tiering, group model (AGDLP), sync scope |
 | [`docs/02-role-map.md`](docs/02-role-map.md) | Birthright vs conditional access, program checks (CUI training, US person, PM approval), SoD rules, exceptions |
 | [`docs/03-jml-runbook.md`](docs/03-jml-runbook.md) | How to do joiner, mover, leaver and SoD by hand, and what the engine does instead |
 | [`docs/04-privileged-access-review.md`](docs/04-privileged-access-review.md) | Findings report from the security review |
-| [`docs/build-log.md`](docs/build-log.md) | Everything I did, why, what broke and how I fixed it |
-| `scripts/02-create-groups.ps1` | Role groups (Global) and resource groups (Domain Local), AGDLP nesting |
+| [`docs/build-log.md`](docs/build-log.md) | The condensed notes version of all six parts |
 | `scripts/03-joiner.ps1` | Creates accounts from HR: birthright groups, program groups only when all checks pass, future hires disabled |
 | `scripts/04-mover.ps1` | Fixes drift: start dates, program transfers, job-role groups, managers |
 | `scripts/05-leaver.ps1` | Disables, scrambles password, revokes Entra sessions (Graph), cleans up, triggers a sync |
@@ -64,65 +81,6 @@ I built the identity foundation for a fictional defense contractor, Potomac Defe
 | `scripts/run-jml.ps1` | Runs the engine in order with a full transcript. Used by the scheduled task |
 | `data/` | Original 26-person HR roster, the 340-person scale test rosters, the answer key, the SoD exceptions register |
 | `evidence/` | Logs the system actually produced, and screenshots |
-
-## How it was built
-
-![Measured offboarding timeline](evidence/screenshots/1.5-leaver-exposure-timeline.png)
-
-**1.1 Plan and design.** OU structure by security tier (not department), so helpdesk delegation on `People` can never reach admin accounts. Role map with birthright access by job and conditional access to program CUI data.
-
-**1.2 Build the domain.** Azure budget alerts, a DC with a static private IP set in Azure, DNS forwarding to Azure DNS, 21 OUs with deletion protection. Worked through three VM deployment failures (region capacity, size restrictions, family quota).
-
-**1.3 Admin tiering.** Separate `t0-`, `t1-` and `t2-` accounts. Helpdesk can reset passwords in `People` only, tested as the helpdesk account: allowed on a normal user, "Access is denied" on a Tier 1 admin.
-
-<details><summary>📸 Screenshots</summary>
-
-![Role groups](evidence/screenshots/1.3-role-groups.png)
-![Helpdesk delegation test: allowed on a user, denied on a Tier 1 admin](evidence/screenshots/1.3-helpdesk-delegation-test.png)
-</details>
-
-**1.4 Hybrid identity.** Entra Connect Sync on its own Tier 0 server, Custom install with password hash sync and OU filtering. Enterprise Admins granted just in time for the install.
-
-<details><summary>📸 Screenshots</summary>
-
-![Only People, Groups/Role and Disabled are synced](evidence/screenshots/1.4-entra-connect-ou-filtering.png)
-![Role groups in Entra, Source: Windows Server AD](evidence/screenshots/1.4-entra-groups-source-ad.png)
-</details>
-
-**1.5 Lifecycle automation.** The JML engine, built piece by piece with every piece run read-only first. I did each process **by hand first** (a manual joiner, a manual leaver, a manual program transfer and a manual SoD review) and then automated it. Highlights:
-- **Mover** only re-enables accounts it disabled itself, removes access before adding it, and caught my own manual mistake (I removed the wrong group)
-- **Leaver** cuts access first and cleans up second. I measured how long a terminated user could still get in, found the gaps, and closed them
-- **Graph app** with certificate auth and 2 permissions. An empty search result taught me to treat "not found" as an error, never as "nothing to do"
-- **Scheduled as a gMSA** with rights granted to a group. Scripts are dry-run by default; only the scheduled task passes `-Apply`
-- **Scale test:** 340 people. It exposed a real bug: one script's "dry run" wasn't dry. Found it from CPU time and object ownership, fixed it, and added `-NonInteractive` so unattended runs fail loudly instead of hanging
-
-<details><summary>📸 Screenshots</summary>
-
-![Joiner run](evidence/screenshots/1.5-joiner-run.png)
-![Program transfer finished by the mover after PM approval](evidence/screenshots/1.5-mover-approval-run.png)
-![Shipboard group in Entra after the transfer](evidence/screenshots/1.5-entra-shipboard-members.png)
-![Graph app: only two application permissions](evidence/screenshots/1.5-graph-app-permissions.png)
-![Graph app: certificate, no client secrets](evidence/screenshots/1.5-graph-app-certificate.png)
-![Leaver run with timestamps](evidence/screenshots/1.5-leaver-run.png)
-![Sign-ins before and after the leaver](evidence/screenshots/1.5-brian-signin-logs.png)
-![Entra audit log: AccountEnabled true to false via DirectorySync](evidence/screenshots/1.5-brian-audit-accountenabled.png)
-![SoD denial in the Windows event log](evidence/screenshots/1.5-sod-event-5001.png)
-![Delegations to the engine's group](evidence/screenshots/1.5-gmsa-delegations.png)
-![Scheduled task ran as the gMSA, result 0](evidence/screenshots/1.5-scheduled-task-gmsa-run.png)
-![Scale test day 2: every change the engine made](evidence/screenshots/1.5-scale-day2-changes.png)
-</details>
-
-**1.6 Security review.** Planted a Domain Admin behind a nested group, then built a review that traces nested paths. Investigated with Security event 4728 before cleaning up, triggered SDProp to see AdminSDHolder in action, and proved the leftover broke helpdesk resets before fixing it. [Findings report](docs/04-privileged-access-review.md).
-
-<details><summary>📸 Screenshots</summary>
-
-![Domain Admins members: the hidden group](evidence/screenshots/1.6-domain-admins-members.png)
-![Review traces the nested path](evidence/screenshots/1.6-review-finding.png)
-![Every Domain Admins addition, from the Security log](evidence/screenshots/1.6-event-4728-history.png)
-![SDProp stamped adminCount=1 with inheritance blocked](evidence/screenshots/1.6-sdprop-admincount.png)
-![After removal: the orphan remains](evidence/screenshots/1.6-review-orphan.png)
-![After the fix: helpdesk reset works, review is clean](evidence/screenshots/1.6-review-clean-after-fix.png)
-</details>
 
 ## Design decisions worth asking me about
 
