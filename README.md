@@ -4,7 +4,7 @@
 
 I built a hybrid identity environment for a fictional defense contractor, **Potomac Defense Systems (PDS)**
 
-A tiered Active Directory domain synced to Entra ID, a PowerShell engine that creates, changes and removes access from an HR file, and the security controls around it. I tested the environment with **340 employees**, measured how long a terminated employee could still get in, and ran a security review that found a Domain Admin hidden behind a nested group, plus two problems I didn't plant.
+A tiered Active Directory domain synced to Entra ID, a PowerShell engine that creates, changes and removes access from an HR file, and the security controls around it. I tested the environment with **340 employees**, measured how long a terminated employee could still get in, and ran a security review that found a Domain Admin hidden behind a nested group, plus two additional problems that unexpectedly came up.
 
 
 ## What I Built
