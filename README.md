@@ -8,14 +8,14 @@ I built a hybrid identity environment for a fictional defense contractor, **Poto
 
 Six parts, in the order I built them. Each one is a step-by-step walkthrough with annotated screenshots.
 
-|                                    Part                                    | What I Built                                                                         | Key Takeaway                                                                      |
-| :------------------------------------------------------------------------: | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
-|       [**1.1 — Access Model Design: Tiered OUs + RBAC**](parts/1.1-plan-and-design/README.md)       | Security-tiered OUs, role model, HR roster, and access rules                         | Access comes from roles and attributes, not "make her like Bob"                   |
-|     [**1.2 — Active Directory Build in Azure**](parts/1.2-build-the-domain/README.md)     | Azure domain controller, DNS, 21 OUs, and budget controls                            | Three failed VM deployments taught me how Azure quotas really work                |
-|        [**1.3 — Admin Tiering + Delegated Administration**](parts/1.3-admin-tiering/README.md)        | Tier 0/1/2 admin accounts, AGDLP groups, and helpdesk delegation                     | Tested as the helpdesk: password reset allowed on a user, **Access is denied** on an admin |
-|      [**1.4 — Hybrid Identity with Entra Connect Sync**](parts/1.4-hybrid-identity/README.md)      | Entra Connect Sync, OU filtering, and Tier 0 protection                              | Only 3 OUs reach the cloud. Admin accounts never do                               |
-| [**1.5 — JML Automation: Joiner, Mover, Leaver**](parts/1.5-lifecycle-automation/README.md) | PowerShell JML engine, Graph API, gMSA, SoD checks, and 340-user test                | A fired employee's old password still worked at 79 s, and my "dry run" wasn't dry |
-|      [**1.6 — Privileged Access Review**](parts/1.6-security-review/README.md)      | Privileged group review, nested group analysis, event 4728, and AdminSDHolder checks | Found my planted Domain Admin, plus two problems I didn't plant                   |
+| Part | Title | What I Built | Key Takeaway |
+|:---:|---|---|---|
+| **1.1** | [**Access Model Design: Tiered OUs + RBAC**](parts/1.1-plan-and-design/README.md) | Security-tiered OUs, role model, HR roster, and access rules | Access comes from roles and attributes, not "make her like Bob" |
+| **1.2** | [**Active Directory Build in Azure**](parts/1.2-build-the-domain/README.md) | Azure domain controller, DNS, 21 OUs, and budget controls | Three failed VM deployments taught me how Azure quotas really work |
+| **1.3** | [**Admin Tiering + Delegated Administration**](parts/1.3-admin-tiering/README.md) | Tier 0/1/2 admin accounts, AGDLP groups, and helpdesk delegation | Tested as the helpdesk: password reset allowed on a user, **Access is denied** on an admin |
+| **1.4** | [**Hybrid Identity with Entra Connect Sync**](parts/1.4-hybrid-identity/README.md) | Entra Connect Sync, OU filtering, and Tier 0 protection | Only 3 OUs reach the cloud. Admin accounts never do |
+| **1.5** | [**JML Automation: Joiner, Mover, Leaver**](parts/1.5-lifecycle-automation/README.md) | PowerShell JML engine, Graph API, gMSA, SoD checks, and 340-user test | A fired employee's old password still worked at 79 s, and my "dry run" wasn't dry |
+| **1.6** | [**Privileged Access Review**](parts/1.6-security-review/README.md) | Privileged group review, nested group analysis, event 4728, and AdminSDHolder checks | Found my planted Domain Admin, plus two problems I didn't plant |
 
 > **About this lab:** PDS is a fictional defense and space contractor. All people, accounts, programs, and data are fictional. The lab runs in my own Azure subscription and Entra ID tenant. The HR data was generated, and the PowerShell scripts drafted, with LLM assistance. I designed the identity controls, ran every script, tested the environment, troubleshot the failures, and verified the results myself. The six walkthroughs document the full build, including mistakes and fixes.
 
