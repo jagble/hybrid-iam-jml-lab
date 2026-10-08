@@ -5,14 +5,15 @@
                  Skips people who have left, keeps future hires disabled, and applies the role map:
                  birthright groups for everyone, program groups only when all checks pass.
   Where to run:  FRD-DC-01, signed in as PDS\t0-jagble
-  Safety:        Set $DryRun = $true to only print decisions without changing anything.
+  Safety:        Dry run by default. Pass -Apply to make real changes (the scheduled task does).
                  Safe to re-run: anyone who already has an account (matched by EmployeeID) is skipped.
 
   Built in five pieces (read roster -> match by ID -> skip/create decision -> groups -> create).
   Drafted with LLM assistance; reviewed, tested and run by Josh Agble.
 #>
 
-$DryRun   = $false     # $true = print only. $false = really create accounts.
+param([switch]$Apply)
+$DryRun = -not $Apply      # dry run unless -Apply is passed (the scheduled task passes it)
 $Roster   = Import-Csv "C:\PDS\data\hr-roster.csv"
 $Today    = (Get-Date).Date
 $Domain   = "ad.potomacdefense.internal"

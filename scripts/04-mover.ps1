@@ -1,4 +1,5 @@
-$DryRun = $true      # $true = print only. $false = really make changes.
+param([switch]$Apply)
+$DryRun = -not $Apply      # dry run unless -Apply is passed (the scheduled task passes it)
 $Roster = Import-Csv "C:\PDS\data\hr-roster.csv"
 $Today  = (Get-Date).Date
 $ProgramGroups = "GG-Role-Radar-Engineers", "GG-Role-Satellite-Engineers", "GG-Role-Shipboard-Engineers"

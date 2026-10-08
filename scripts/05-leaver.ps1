@@ -4,21 +4,22 @@
   What it does:  Finds people HR says have left (Status = Terminated, or contract end date passed)
                  and offboards their accounts: cut access first, then clean up, and log every step.
   Where to run:  FRD-DC-01, signed in as PDS\t0-jagble
-  Safety:        $DryRun = $true only prints. Safe to re-run: already-offboarded accounts are skipped.
+  Safety:        Dry run by default; -Apply makes real changes. Safe to re-run: already-offboarded accounts are skipped.
   Cloud access:  Signs in to Graph as the PDS-JML-Engine app with a certificate (no secrets).
-                 The IDs below are identifiers, not secrets.
+                 The IDs are identifiers, not secrets; the real values live only on the server.
 
   Drafted with LLM assistance; reviewed, tested and run by Josh Agble.
 #>
 
-$DryRun     = $true      # $true = print only. $false = really offboard.
+param([switch]$Apply)
+$DryRun = -not $Apply      # dry run unless -Apply is passed (the scheduled task passes it)
 $Roster     = Import-Csv "C:\PDS\data\hr-roster.csv"
 $Today      = (Get-Date).Date
 $DisabledOU = "OU=Disabled,OU=PDS,DC=ad,DC=potomacdefense,DC=internal"
 $LogFile    = "C:\PDS\logs\leaver-$(Get-Date -Format yyyy-MM-dd).csv"
-$TenantId   = "6f57f15e-eaec-4042-8282-01ae18e1ad7b"
-$ClientId   = "1866cba5-e263-493f-809f-e5c3f7589f60"
-$CertThumb  = "5B2EDDEB9032E2DA87EDAD0101962AAFFA23BECE"
+$TenantId   = "<DIRECTORY-TENANT-ID>"        # set on the server; identifiers, not secrets, but kept out of the public repo
+$ClientId   = "<PDS-JML-ENGINE-CLIENT-ID>"
+$CertThumb  = "<CERTIFICATE-THUMBPRINT>"
 Add-Type -AssemblyName System.Web
 
 if ($DryRun) { "*** DRY RUN: nothing will be changed ***" }
@@ -32,6 +33,7 @@ function Write-Log($Name, $EmpId, $Step, $Detail) {
     if (-not $DryRun) { $entry | Export-Csv $LogFile -Append -NoTypeInformation }
 }
 
+$Processed = 0
 foreach ($p in $Roster) {
     $leaving = ($p.Status -eq "Terminated") -or ($p.EndDate -and [datetime]$p.EndDate -lt $Today)
     if (-not $leaving) { continue }
@@ -77,6 +79,17 @@ foreach ($p in $Roster) {
     }
     Write-Log $name $p.EmployeeID "MOVED" "description set, manager cleared, moved to Disabled"
     Write-Log $name $p.EmployeeID "DONE" ""
+    $Processed++
+}
+
+# ---- 5. Don't wait for the 30-minute schedule: push the changes to Entra now ----
+if (-not $DryRun -and $Processed -gt 0) {
+    try {
+        Invoke-Command -ComputerName FRD-SYNC-01 -ScriptBlock { Start-ADSyncSyncCycle -PolicyType Delta } -ErrorAction Stop | Out-Null
+        "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')  SYNC triggered on FRD-SYNC-01 for $Processed leaver(s)"
+    } catch {
+        "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')  SYNC NOT started: $($_.Exception.Message). The scheduled cycle will pick it up within 30 minutes."
+    }
 }
 
 Disconnect-MgGraph | Out-Null
