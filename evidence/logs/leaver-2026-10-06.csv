@@ -1,0 +1,8 @@
+"Time","EmployeeID","Name","Step","Detail"
+"2026-10-06 06:36:57","100129","Brian Keller","START","HR status Terminated (last day 2026-09-25)"
+"2026-10-06 06:36:57","100129","Brian Keller","DISABLED","AD account disabled, password reset to random"
+"2026-10-06 06:36:58","100129","Brian Keller","REVOKED","Entra sessions for brian.keller@PotomacDefenseSystems.onmicrosoft.com"
+"2026-10-06 06:36:58","100129","Brian Keller","GROUPS-BEFORE","GG-Role-Shipboard-Engineers; GG-Role-Engineers; GG-Role-AllStaff"
+"2026-10-06 06:36:58","100129","Brian Keller","GROUPS-REMOVED","3 groups"
+"2026-10-06 06:36:58","100129","Brian Keller","MOVED","description set, manager cleared, moved to Disabled"
+"2026-10-06 06:36:58","100129","Brian Keller","DONE",""

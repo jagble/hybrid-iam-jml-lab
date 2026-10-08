@@ -1,0 +1,435 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261007220833
+Username: PDS\gmsa-jml$
+RunAs User: PDS\gmsa-jml$
+Configuration Name: 
+Machine: FRD-DC-01 (Microsoft Windows NT 10.0.20348.0)
+Host Application: powershell.exe -NoProfile -NonInteractive -File C:\PDS\scripts\run-jml.ps1
+Process ID: 5868
+PSVersion: 5.1.20348.5622
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.20348.5622
+BuildVersion: 10.0.20348.5622
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+=== PDS JML engine | running as pds\gmsa-jml$ | 10/07/2026 22:08:33 ===
+
+--- 03-joiner.ps1 ---
+Diane Whitaker : SKIP, already has an account
+Marcus Bell : SKIP, already has an account
+Priya Raman : SKIP, already has an account
+Tom Haskins : SKIP, already has an account
+Elena Vasquez : SKIP, already has an account
+Gregory Okafor : SKIP, already has an account
+Josh Agble : SKIP, already has an account
+Jordan Carter : SKIP, already has an account
+Aisha Patel : SKIP, already has an account
+Ben Lawson : SKIP, already has an account
+Kevin Tran : SKIP, already has an account
+Rachel Moore : SKIP, already has an account
+Samuel Reyes : SKIP, already has an account
+Nathan Brooks : SKIP, already has an account
+Olivia Grant : SKIP, already has an account
+Chris Douglas : SKIP, already has an account
+Hannah Price : SKIP, already has an account
+Brian Keller : SKIP, already has an account
+Maria Lopez : SKIP, already has an account
+Derek Hall : SKIP, already has an account
+Linda Foster : SKIP, already has an account
+Jason Wright : SKIP, already has an account
+Tyler Nguyen : SKIP, already has an account
+Monica Hayes : SKIP, already has an account
+Carlos Mendes : SKIP, already has an account
+Erin Walsh : SKIP, already has an account
+Yusuf Rogers : SKIP, already has an account
+Billy James : SKIP, already has an account
+Aaron Price : SKIP, already has an account
+Alexis Campbell : SKIP, already has an account
+Jack Gibson : SKIP, already has an account
+Christina Ellis : SKIP, already has an account
+Kevin Chavez : SKIP, already has an account
+Charlotte Rivera : SKIP, already has an account
+Justin Rice : SKIP, already has an account
+Alan Cooper : SKIP, already has an account
+Grace Rodriguez : SKIP, already has an account
+Judy Johnston : SKIP, already has an account
+Kelly Alexander : SKIP, already has an account
+Omar Kennedy : SKIP, already has an account
+Natalie Duncan : SKIP, already has an account
+Arjun Bennett : SKIP, already has an account
+Susan Alexander : SKIP, already has an account
+Michelle Johnson : SKIP, already has an account
+Kelly Hansen : SKIP, already has an account
+Linda Simpson : SKIP, already has an account
+Benjamin Henderson : SKIP, already has an account
+Juan Okafor : SKIP, already has an account
+Kathleen Boyd : SKIP, already has an account
+Adam Hayes : SKIP, already has an account
+Henry Sullivan : SKIP, already has an account
+Zachary Wagner : SKIP, already has an account
+Judy Shah : SKIP, already has an account
+Donald King : SKIP, already has an account
+Debra Morris : SKIP, already has an account
+Tariq Shaw : SKIP, already has an account
+Zachary Meyer : SKIP, already has an account
+Sophia Cruz : SKIP, already has an account
+Hiroshi Stephens : SKIP, already has an account
+Adam Hart : SKIP, already has an account
+Grace Perez : SKIP, already has an account
+Samantha Smith : SKIP, already has an account
+Gloria Ward : SKIP, already has an account
+Julie Warren : SKIP, already has an account
+George Richards : SKIP, already has an account
+Kathleen Rice : SKIP, already has an account
+Karen Coleman : SKIP, already has an account
+Andre Berry : SKIP, already has an account
+Peter Cook : SKIP, already has an account
+Gregory Fisher : SKIP, already has an account
+Gabriel Ray : SKIP, already has an account
+Wei Ward : SKIP, already has an account
+Megan Miller : SKIP, already has an account
+Jordan Diaz : SKIP, already has an account
+Anthony Kelley : SKIP, already has an account
+Willie Powell : SKIP, already has an account
+Katherine Watson : SKIP, already has an account
+Donna Robertson : SKIP, already has an account
+Christian Flores : SKIP, already has an account
+Noah Bryant : SKIP, already has an account
+Jeffrey Hawkins : SKIP, already has an account
+Jeffrey Chavez : SKIP, already has an account
+Emily Richards : SKIP, already has an account
+Amber Burns : SKIP, already has an account
+Evelyn Dunn : SKIP, already has an account
+Linda Kelley : SKIP, already has an account
+Jose Guzman : SKIP, already has an account
+Imani Wells : SKIP, already has an account
+Andre Jenkins : SKIP, already has an account
+Dylan Kumar : SKIP, already has an account
+Joan Murphy : SKIP, already has an account
+Brandon Williams : SKIP, already has an account
+Jesse Thomas : SKIP, already has an account
+Joyce Alvarez : SKIP, already has an account
+Patricia Sato : SKIP, already has an account
+Heather Dixon : SKIP, already has an account
+Nancy Gonzalez : SKIP, already has an account
+Teresa Myers : SKIP, already has an account
+Lucia Scott : SKIP, already has an account
+Carl Phillips : SKIP, already has an account
+Nicholas Ross : SKIP, already has an account
+Andre Hoffman : SKIP, already has an account
+Diana Perez : SKIP, already has an account
+Richard Cooper : SKIP, already has an account
+Nathan Howard : SKIP, already has an account
+Darius Tanaka : SKIP, already has an account
+Emily Asante : SKIP, already has an account
+Dylan Cole : SKIP, already has an account
+Mei Alvarez : SKIP, already has an account
+Billy Nakamura : SKIP, already has an account
+Imani Delgado : SKIP, already has an account
+Kyle Marshall : SKIP, already has an account
+Jada West : SKIP, already has an account
+Logan Foster : SKIP, already has an account
+Kayla Lee : SKIP, already has an account
+Brittany Johnston : SKIP, already has an account
+Judith Schmidt : SKIP, already has an account
+Roger Wallace : SKIP, already has an account
+Victoria Mitchell : SKIP, already has an account
+Sofia Hill : SKIP, already has an account
+Carol Wilson : SKIP, already has an account
+Gabriel Davis : SKIP, already has an account
+Cynthia Hughes : SKIP, already has an account
+Megan Long : SKIP, already has an account
+Randy Delgado : SKIP, already has an account
+Harold Lopez : SKIP, already has an account
+Patricia Gonzalez : SKIP, already has an account
+Noah Schmidt : SKIP, already has an account
+Adam Knight : SKIP, already has an account
+Kyle Garza : SKIP, already has an account
+Amara Boateng : SKIP, already has an account
+Andre Ford : SKIP, already has an account
+Denise Ortiz : SKIP, already has an account
+Michael Kelly : SKIP, already has an account
+Brittany Gomez : SKIP, already has an account
+James Rahman : SKIP, already has an account
+Benjamin Alexander : SKIP, already has an account
+Paul Bradley : SKIP, already has an account
+Andrea Thompson : SKIP, already has an account
+Jerry Long : SKIP, already has an account
+Martha Miller : SKIP, already has an account
+Kelly Rogers : SKIP, already has an account
+Andrew Olson : SKIP, already has an account
+Austin Harrison : SKIP, already has an account
+Janice Snyder : SKIP, already has an account
+Sandra Carpenter : SKIP, already has an account
+Fatima Carpenter : SKIP, already has an account
+Aisha Rice : SKIP, already has an account
+Maria Martin : SKIP, already has an account
+Jonathan Hawkins : SKIP, already has an account
+Billy Weaver : SKIP, already has an account
+Michael Hernandez : SKIP, already has an account
+Nicole Reed : SKIP, already has an account
+Tyler Ross : SKIP, already has an account
+Amara Coleman : SKIP, already has an account
+Pamela Graham : SKIP, already has an account
+Timothy Lewis : SKIP, already has an account
+Eric Henry : SKIP, already has an account
+Andrew Kumar : SKIP, already has an account
+Noah White : SKIP, already has an account
+Timothy Elliott : SKIP, already has an account
+Lawrence Boateng : SKIP, already has an account
+Mary Thompson : SKIP, already has an account
+Laura Moore : SKIP, already has an account
+Joshua Gibson : SKIP, already has an account
+Julie Brooks : SKIP, already has an account
+Benjamin Mcdonald : SKIP, already has an account
+Jack Brown : SKIP, already has an account
+Jeremy Howard : SKIP, already has an account
+Madison West : SKIP, already has an account
+Simone Matthews : SKIP, already has an account
+Simone Ruiz : SKIP, already has an account
+Richard Duncan : SKIP, already has an account
+Pamela Turner : SKIP, already has an account
+Chloe Shaw : SKIP, already has an account
+Tyler Simmons : SKIP, already has an account
+Simone Murray : SKIP, already has an account
+Marie Burns : SKIP, already has an account
+Alan Wagner : SKIP, already has an account
+Ngozi Pierce : SKIP, already has an account
+Elijah Gonzalez : SKIP, already has an account
+Elijah Griffin : SKIP, already has an account
+Evelyn Andrews : SKIP, already has an account
+Peter Dunn : SKIP, already has an account
+Jean Chen : SKIP, already has an account
+Deborah Cox : SKIP, already has an account
+Vincent Hawkins : SKIP, already has an account
+Alan Phillips : SKIP, already has an account
+Gabriel Stevens : SKIP, already has an account
+Kathleen Ray : SKIP, already has an account
+Stephanie Mills : SKIP, already has an account
+Aisha Mason : SKIP, already has an account
+Stephen Sanders : SKIP, already has an account
+Juan Simmons : SKIP, already has an account
+Kimberly Shah : SKIP, already has an account
+Omar Adams : SKIP, already has an account
+Walter Ray : SKIP, already has an account
+Marcus Berry : SKIP, already has an account
+Linda Roberts : SKIP, already has an account
+Adam Perkins : SKIP, already has an account
+Albert Carter : SKIP, already has an account
+Juan Torres : SKIP, already has an account
+Ashley Cruz : SKIP, already has an account
+Vincent Henderson : SKIP, already has an account
+Harold Gutierrez : SKIP, already has an account
+Judy Bailey : SKIP, already has an account
+Jerry Mitchell : SKIP, already has an account
+Kenneth Hayes : SKIP, already has an account
+Priya Allen : SKIP, already has an account
+Ethan Sanders : SKIP, already has an account
+Simone Morgan : SKIP, already has an account
+Patricia Williams : SKIP, already has an account
+Madison Henderson : SKIP, already has an account
+Laura Crawford : SKIP, already has an account
+Robert Boateng : SKIP, already has an account
+Liam Thompson : SKIP, already has an account
+Marie Turner : SKIP, already has an account
+Lucia Carter : SKIP, already has an account
+Danielle Campbell : SKIP, already has an account
+Kwame Hunt : SKIP, already has an account
+Sophia Gutierrez : SKIP, already has an account
+Lori Taylor : SKIP, already has an account
+Carl Parker : SKIP, already has an account
+Noah Knight : SKIP, already has an account
+Arjun Martinez : SKIP, already has an account
+Billy Okafor : SKIP, already has an account
+Harold Brooks : SKIP, already has an account
+Kimberly Ruiz : SKIP, already has an account
+Christopher Cole : SKIP, already has an account
+Jean Vargas : SKIP, already has an account
+Mary Collins : SKIP, already has an account
+Abigail Evans : SKIP, already has an account
+Isabella Jordan : SKIP, already has an account
+Matthew Hill : SKIP, already has an account
+Sandra Hansen : SKIP, already has an account
+Michael Harris : SKIP, already has an account
+Thomas Hunter : SKIP, already has an account
+Elizabeth Nelson : SKIP, already has an account
+Tariq Carter : SKIP, already has an account
+Joyce Salazar : SKIP, already has an account
+Amber Ray : SKIP, already has an account
+Debra Kelley : SKIP, already has an account
+Shirley Elliott : SKIP, already has an account
+Arjun Gardner : SKIP, already has an account
+Mei Jimenez : SKIP, already has an account
+Amber Shah : SKIP, already has an account
+Ronald Hayes : SKIP, already has an account
+Kimberly Ortiz : SKIP, already has an account
+Brenda Garcia : SKIP, already has an account
+Christina Snyder : SKIP, already has an account
+Evelyn Duncan : SKIP, already has an account
+Ashley Patel : SKIP, already has an account
+Jennifer King : SKIP, already has an account
+Patricia Murray : SKIP, already has an account
+Jennifer Matthews : SKIP, already has an account
+Simone Shah : SKIP, already has an account
+Sofia Morales : SKIP, already has an account
+Omar Flores : SKIP, already has an account
+Vincent Harris : SKIP, already has an account
+Nia Dunn : SKIP, already has an account
+Melissa Ford : SKIP, already has an account
+Matthew Morgan : SKIP, already has an account
+Hannah Lopez : SKIP, already has an account
+John Owens : SKIP, already has an account
+Anthony Powell : SKIP, already has an account
+Simone Rivera : SKIP, already has an account
+Rebecca Ramirez : SKIP, already has an account
+Ronald Mendez : SKIP, already has an account
+Arthur Scott : SKIP, already has an account
+Scott Ramos : SKIP, already has an account
+Harold Boateng : SKIP, already has an account
+Christian Coleman : SKIP, already has an account
+Melissa Rice : SKIP, already has an account
+Emma Foster : SKIP, already has an account
+Gary Carpenter : SKIP, already has an account
+Alice Rodriguez : SKIP, already has an account
+Mei Soto : SKIP, already has an account
+Carol Snyder : SKIP, already has an account
+William Wallace : SKIP, already has an account
+Janice Carpenter : SKIP, already has an account
+Kathleen Hudson : SKIP, already has an account
+Paul Mills : SKIP, already has an account
+Teresa Evans : SKIP, already has an account
+Harold Taylor : SKIP, already has an account
+Christina Howard : SKIP, already has an account
+Donna Nelson : SKIP, already has an account
+Steven Morgan : SKIP, already has an account
+Timothy Turner : SKIP, already has an account
+Adam Hamilton : SKIP, already has an account
+Gerald Berry : SKIP, already has an account
+Lori Nichols : SKIP, already has an account
+Stephen Willis : SKIP, already has an account
+Melissa Riley : SKIP, already has an account
+Terry Hawkins : SKIP, already has an account
+Stephen Torres : SKIP, already has an account
+Billy Hoffman : SKIP, already has an account
+Timothy Chavez : SKIP, already has an account
+Amara Arnold : SKIP, already has an account
+Gloria Perez : SKIP, already has an account
+Brian Munoz : SKIP, already has an account
+Teresa Gibson : SKIP, already has an account
+Joan Matthews : SKIP, already has an account
+Danielle Grant : SKIP, already has an account
+Abigail Kelly : SKIP, already has an account
+Carolyn Pierce : SKIP, already has an account
+Jason Garcia : SKIP, already has an account
+Sofia Berry : SKIP, already has an account
+Arthur Rogers : SKIP, already has an account
+Brian Wallace : SKIP, already has an account
+Roy Hamilton : SKIP, already has an account
+Austin Ferguson : SKIP, already has an account
+Gregory Simmons : SKIP, already has an account
+Kathryn Gibson : SKIP, already has an account
+Sarah Wells : SKIP, already has an account
+Mateo Diaz : SKIP, already has an account
+Kevin Stewart : SKIP, already has an account
+Chloe Vargas : SKIP, already has an account
+Kofi Chavez : SKIP, already has an account
+Ethan Washington : SKIP, already has an account
+John Shaw : SKIP, already has an account
+Bruce Powell : SKIP, already has an account
+Alexis Ramos : SKIP, already has an account
+Megan Scott : SKIP, already has an account
+Judith Lawrence : SKIP, already has an account
+Angela Fox : SKIP, already has an account
+Mary Hart : SKIP, already has an account
+Kwame Freeman : SKIP, already has an account
+Eric Hayes : SKIP, already has an account
+Marcus Kumar : SKIP, already has an account
+David Sandoval : SKIP, already has an account
+Debra Ross : SKIP, already has an account
+Larry West : SKIP, already has an account
+Roger Davis : SKIP, HR says Terminated
+Wei Scott : SKIP, HR says Terminated
+Arjun Vargas : SKIP, HR says Terminated
+Jean Burns : SKIP, HR says Terminated
+Rachel Gordon : SKIP, HR says Terminated
+Jordan Lawrence : SKIP, end date 2026-09-17 has passed
+Liam Wells : SKIP, end date 2026-10-05 has passed
+Malik Ali : SKIP, end date 2026-09-19 has passed
+Lauren Cruz : SKIP, already has an account
+Matthew Flores : SKIP, already has an account
+Hiroshi Henry : SKIP, already has an account
+Rachel Taylor : SKIP, already has an account
+Alice Hall : SKIP, already has an account
+Kiki Wifey : CREATE, enabled -> GG-Role-AllStaff, GG-Role-Engineers, GG-Role-Satellite-Engineers
+
+--- 04-mover.ps1 ---
+Samuel Reyes : NO ACCESS to Radar yet (checks not met)
+Nathan Brooks : NO ACCESS to Satellite yet (checks not met)
+Olivia Grant : NO ACCESS to Radar yet (checks not met)
+Justin Rice : NO ACCESS to Shipboard yet (checks not met)
+Omar Kennedy : NO ACCESS to Radar yet (checks not met)
+Natalie Duncan : NO ACCESS to Radar yet (checks not met)
+Juan Okafor : NO ACCESS to Shipboard yet (checks not met)
+Karen Coleman : NO ACCESS to Satellite yet (checks not met)
+Jordan Diaz : NO ACCESS to Satellite yet (checks not met)
+Anthony Kelley : NO ACCESS to Satellite yet (checks not met)
+Jada West : NO ACCESS to Satellite yet (checks not met)
+Carol Wilson : NO ACCESS to Satellite yet (checks not met)
+Brittany Gomez : NO ACCESS to Satellite yet (checks not met)
+Martha Miller : NO ACCESS to Shipboard yet (checks not met)
+Aisha Rice : NO ACCESS to Shipboard yet (checks not met)
+Michael Hernandez : NO ACCESS to Radar yet (checks not met)
+Julie Brooks : NO ACCESS to Shipboard yet (checks not met)
+Simone Matthews : NO ACCESS to Shipboard yet (checks not met)
+Alan Wagner : NO ACCESS to Satellite yet (checks not met)
+Deborah Cox : NO ACCESS to Satellite yet (checks not met)
+Aisha Mason : NO ACCESS to Satellite yet (checks not met)
+Juan Simmons : NO ACCESS to Satellite yet (checks not met)
+Vincent Henderson : NO ACCESS to Satellite yet (checks not met)
+Judy Bailey : NO ACCESS to Satellite yet (checks not met)
+Simone Morgan : NO ACCESS to Satellite yet (checks not met)
+Liam Thompson : NO ACCESS to Shipboard yet (checks not met)
+Elizabeth Nelson : NO ACCESS to Radar yet (checks not met)
+Tariq Carter : NO ACCESS to Shipboard yet (checks not met)
+Mei Jimenez : NO ACCESS to Radar yet (checks not met)
+Kimberly Ortiz : NO ACCESS to Satellite yet (checks not met)
+Matthew Morgan : NO ACCESS to Shipboard yet (checks not met)
+Teresa Evans : NO ACCESS to Satellite yet (checks not met)
+Donna Nelson : NO ACCESS to Radar yet (checks not met)
+Brian Munoz : NO ACCESS to Shipboard yet (checks not met)
+Joan Matthews : NO ACCESS to Radar yet (checks not met)
+Gregory Simmons : NO ACCESS to Radar yet (checks not met)
+Kiki Wifey : SET MANAGER -> Priya Raman
+
+--- 05-leaver.ps1 ---
+Brian Keller : SKIP, already offboarded
+Erin Walsh : SKIP, already offboarded
+Jack Gibson : SKIP, already offboarded
+Cynthia Hughes : SKIP, already offboarded
+Andre Ford : SKIP, already offboarded
+Richard Duncan : SKIP, already offboarded
+Pamela Turner : SKIP, already offboarded
+Abigail Evans : SKIP, already offboarded
+Jennifer Matthews : SKIP, already offboarded
+Mateo Diaz : SKIP, already offboarded
+Roger Davis : SKIP, no account in AD
+Wei Scott : SKIP, no account in AD
+Arjun Vargas : SKIP, no account in AD
+Jean Burns : SKIP, no account in AD
+Rachel Gordon : SKIP, no account in AD
+Jordan Lawrence : SKIP, no account in AD
+Liam Wells : SKIP, no account in AD
+Malik Ali : SKIP, no account in AD
+
+--- 06-sod-check.ps1 ---
+No conflicts for [Finance + Accounts Payable]
+
+=== done 10/07/2026 22:08:41 ===
+**********************
+Windows PowerShell transcript end
+End time: 20261007220841
+**********************
