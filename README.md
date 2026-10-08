@@ -1,12 +1,13 @@
 # Hybrid IAM Lab: Automated Joiner-Mover-Leaver for AD + Entra ID
 
-**An HR-driven identity lifecycle engine for a hybrid Active Directory + Microsoft Entra ID environment**
+
 
 I built a hybrid identity environment for a fictional defense contractor, **Potomac Defense Systems (PDS)**: a tiered Active Directory domain synced to Entra ID, a PowerShell engine that creates, changes and removes access from an HR file, and the security controls around it. I tested the environment with **340 employees**, measured how long a terminated employee could still get in, and ran a security review that found a Domain Admin hidden behind a nested group, plus two problems I didn't plant.
 
+
 ## What I Built
 
-Six parts, in the order I built them. Each one is a step-by-step walkthrough with annotated screenshots.
+Each part is a step-by-step walkthrough with annotated screenshots.
 
 | Part | Title | What I Built | Key Takeaway |
 |:---:|---|---|---|
@@ -17,11 +18,11 @@ Six parts, in the order I built them. Each one is a step-by-step walkthrough wit
 | **1.5** | [**JML Automation: Joiner, Mover, Leaver**](parts/1.5-lifecycle-automation/README.md) | PowerShell JML engine, Graph API, gMSA, SoD checks, and 340-user test | A fired employee's old password still worked at 79 s, and my "dry run" wasn't dry |
 | **1.6** | [**Privileged Access Review**](parts/1.6-security-review/README.md) | Privileged group review, nested group analysis, event 4728, and AdminSDHolder checks | Found my planted Domain Admin, plus two problems I didn't plant |
 
-> **About this lab:** PDS is a fictional defense and space contractor. All people, accounts, programs, and data are fictional. The lab runs in my own Azure subscription and Entra ID tenant. The HR data was generated, and the PowerShell scripts drafted, with LLM assistance. I designed the identity controls, ran every script, tested the environment, troubleshot the failures, and verified the results myself. The six walkthroughs document the full build, including mistakes and fixes.
+
 
 ---
 
-## Results at a Glance
+## Results
 
 | Area                         | Result                                                                                                       |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------ |
@@ -34,9 +35,6 @@ Six parts, in the order I built them. Each one is a step-by-step walkthrough wit
 | **Separation of duties**     | **3/3 tests passed** for Finance + Accounts Payable conflicts                                                |
 | **Privileged access review** | Found a hidden Domain Admin path, standing Enterprise/Schema Admin membership, and an AdminSDHolder leftover that broke helpdesk resets |
 
----
-
-![Measured offboarding timeline](evidence/screenshots/1.5-leaver-exposure-timeline.png)
 
 ---
 
@@ -68,8 +66,7 @@ Six parts, in the order I built them. Each one is a step-by-step walkthrough wit
 * **Azure VMs**
 
   * `FRD-DC-01` — Domain Controller
-  * `FRD-SYNC-01` — Entra Connect Sync server
-* `FRD-SYNC-01` has **no inbound ports** and is accessed through the domain controller
+  * `FRD-SYNC-01` — Entra Connect Sync server (has **no inbound ports** and is accessed through the domain controller)
 * Active Directory is the **source of truth**
 * Password Hash Synchronization (PHS) for cloud sign-in
 * Only `People`, `Groups\Role` and `Disabled` sync to Entra. Admin accounts, service accounts and resource groups stay in Active Directory
@@ -136,7 +133,7 @@ The Graph app signs in with a certificate whose private key can't be exported, a
 
 ### Detective + Corrective Controls
 
-Active Directory cannot prevent a toxic group combination. So the SoD check:
+Active Directory cannot prevent a risky group combination. So the SoD check:
 
 1. Detects conflicting access
 2. Checks for an approved exception (not expired, 14 days max, not approved by the person or their own manager)
