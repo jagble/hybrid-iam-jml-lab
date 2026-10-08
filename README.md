@@ -67,13 +67,27 @@ I built the identity foundation for a fictional defense contractor, Potomac Defe
 
 ## How it was built
 
+![Measured offboarding timeline](evidence/screenshots/1.5-leaver-exposure-timeline.png)
+
 **1.1 Plan and design.** OU structure by security tier (not department), so helpdesk delegation on `People` can never reach admin accounts. Role map with birthright access by job and conditional access to program CUI data.
 
 **1.2 Build the domain.** Azure budget alerts, a DC with a static private IP set in Azure, DNS forwarding to Azure DNS, 21 OUs with deletion protection. Worked through three VM deployment failures (region capacity, size restrictions, family quota).
 
 **1.3 Admin tiering.** Separate `t0-`, `t1-` and `t2-` accounts. Helpdesk can reset passwords in `People` only, tested as the helpdesk account: allowed on a normal user, "Access is denied" on a Tier 1 admin.
 
+<details><summary>📸 Screenshots</summary>
+
+![Role groups](evidence/screenshots/1.3-role-groups.png)
+![Helpdesk delegation test: allowed on a user, denied on a Tier 1 admin](evidence/screenshots/1.3-helpdesk-delegation-test.png)
+</details>
+
 **1.4 Hybrid identity.** Entra Connect Sync on its own Tier 0 server, Custom install with password hash sync and OU filtering. Enterprise Admins granted just in time for the install.
+
+<details><summary>📸 Screenshots</summary>
+
+![Only People, Groups/Role and Disabled are synced](evidence/screenshots/1.4-entra-connect-ou-filtering.png)
+![Role groups in Entra, Source: Windows Server AD](evidence/screenshots/1.4-entra-groups-source-ad.png)
+</details>
 
 **1.5 Lifecycle automation.** The JML engine, built piece by piece with every piece run read-only first. I did each process **by hand first** (a manual joiner, a manual leaver, a manual program transfer and a manual SoD review) and then automated it. Highlights:
 - **Mover** only re-enables accounts it disabled itself, removes access before adding it, and caught my own manual mistake (I removed the wrong group)
@@ -82,7 +96,33 @@ I built the identity foundation for a fictional defense contractor, Potomac Defe
 - **Scheduled as a gMSA** with rights granted to a group. Scripts are dry-run by default; only the scheduled task passes `-Apply`
 - **Scale test:** 340 people. It exposed a real bug: one script's "dry run" wasn't dry. Found it from CPU time and object ownership, fixed it, and added `-NonInteractive` so unattended runs fail loudly instead of hanging
 
+<details><summary>📸 Screenshots</summary>
+
+![Joiner run](evidence/screenshots/1.5-joiner-run.png)
+![Program transfer finished by the mover after PM approval](evidence/screenshots/1.5-mover-approval-run.png)
+![Shipboard group in Entra after the transfer](evidence/screenshots/1.5-entra-shipboard-members.png)
+![Graph app: only two application permissions](evidence/screenshots/1.5-graph-app-permissions.png)
+![Graph app: certificate, no client secrets](evidence/screenshots/1.5-graph-app-certificate.png)
+![Leaver run with timestamps](evidence/screenshots/1.5-leaver-run.png)
+![Sign-ins before and after the leaver](evidence/screenshots/1.5-brian-signin-logs.png)
+![Entra audit log: AccountEnabled true to false via DirectorySync](evidence/screenshots/1.5-brian-audit-accountenabled.png)
+![SoD denial in the Windows event log](evidence/screenshots/1.5-sod-event-5001.png)
+![Delegations to the engine's group](evidence/screenshots/1.5-gmsa-delegations.png)
+![Scheduled task ran as the gMSA, result 0](evidence/screenshots/1.5-scheduled-task-gmsa-run.png)
+![Scale test day 2: every change the engine made](evidence/screenshots/1.5-scale-day2-changes.png)
+</details>
+
 **1.6 Security review.** Planted a Domain Admin behind a nested group, then built a review that traces nested paths. Investigated with Security event 4728 before cleaning up, triggered SDProp to see AdminSDHolder in action, and proved the leftover broke helpdesk resets before fixing it. [Findings report](docs/04-privileged-access-review.md).
+
+<details><summary>📸 Screenshots</summary>
+
+![Domain Admins members: the hidden group](evidence/screenshots/1.6-domain-admins-members.png)
+![Review traces the nested path](evidence/screenshots/1.6-review-finding.png)
+![Every Domain Admins addition, from the Security log](evidence/screenshots/1.6-event-4728-history.png)
+![SDProp stamped adminCount=1 with inheritance blocked](evidence/screenshots/1.6-sdprop-admincount.png)
+![After removal: the orphan remains](evidence/screenshots/1.6-review-orphan.png)
+![After the fix: helpdesk reset works, review is clean](evidence/screenshots/1.6-review-clean-after-fix.png)
+</details>
 
 ## Design decisions worth asking me about
 
@@ -101,7 +141,7 @@ I built the identity foundation for a fictional defense contractor, Potomac Defe
 | `evidence/logs/leaver-*.csv` | Timestamped leaver audit trail |
 | `evidence/logs/sod-alerts.csv` | SoD decisions: denied, allowed by exception, denied |
 | `evidence/logs/privileged-review-*.csv` | Final clean privileged access review |
-| `evidence/screenshots/` | Key moments from each part, named by section (for example `1.3-helpdesk-access-denied.png`) |
+| [`evidence/`](evidence/README.md) | Every screenshot, named by build section, in one gallery |
 
 ## What I'd do differently in production
 
