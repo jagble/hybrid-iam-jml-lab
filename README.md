@@ -1,4 +1,4 @@
-# 🏢 PDS Identity Foundation
+# PDS Identity Foundation
 
 **Hybrid Active Directory + Microsoft Entra ID with automated Joiner, Mover, and Leaver (JML) processes**
 
@@ -21,7 +21,7 @@ I tested the environment with **340 employees**, measured the offboarding proces
 
 ---
 
-## 📊 Results at a Glance
+## Results at a Glance
 
 | Area                         | Result                                                                                                              |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------- |
@@ -36,7 +36,7 @@ I tested the environment with **340 employees**, measured the offboarding proces
 
 ---
 
-## 🧭 Project Walkthrough
+## What I Built
 
 The project is divided into six stages:
 
@@ -53,7 +53,7 @@ The project is divided into six stages:
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```text
  HR roster (CSV)                       Microsoft Entra ID
@@ -76,7 +76,7 @@ The project is divided into six stages:
  └─────────────────────────┘
 ```
 
-### ☁️ Environment
+### Environment
 
 * **Azure VMs**
 
@@ -88,7 +88,7 @@ The project is divided into six stages:
 * Only approved OUs are synchronized to Entra
 * Administrative and service accounts remain on-premises
 
-### 🔄 Entra Sync Scope
+### Entra Sync Scope
 
 Only these areas are synchronized:
 
@@ -104,11 +104,11 @@ The following remain in Active Directory:
 
 ---
 
-## 🔄 Identity Lifecycle Automation
+## Identity Lifecycle Automation
 
 The JML engine processes employee changes from an HR CSV.
 
-### 👤 Joiner
+### Joiner
 
 Creates new employees and assigns access based on:
 
@@ -119,7 +119,7 @@ Creates new employees and assigns access based on:
 * Required training
 * Eligibility requirements
 
-### 🔁 Mover
+### Mover
 
 Updates access when an employee changes:
 
@@ -129,7 +129,7 @@ Updates access when an employee changes:
 * Manager
 * Start date
 
-### 🚪 Leaver
+### Leaver
 
 When an employee leaves, the engine:
 
@@ -141,11 +141,11 @@ When an employee leaves, the engine:
 6. Triggers an Entra sync
 7. Records the actions in an audit log
 
-### ⏱️ Offboarding Test
+### Why this matters
 
 During testing, I found that an employee's old password could still work in the cloud **79 seconds after offboarding began**.
 
-This exposed an important identity-management issue:
+That exposed an important identity-management issue:
 
 > Disabling an on-premises account does not automatically mean cloud access disappears immediately.
 
@@ -153,9 +153,9 @@ I changed the process so the leaver workflow **revokes cloud sessions and trigge
 
 ---
 
-## 🔐 Security Controls
+## Security Controls
 
-### 🔑 Least Privilege
+### Least Privilege
 
 The automation engine follows least-privilege principles.
 
@@ -165,7 +165,7 @@ The automation engine follows least-privilege principles.
 * Helpdesk permissions are limited to normal user accounts
 * Privileged accounts are protected by administrative tiering
 
-### 🔒 Secure Authentication
+### Secure Authentication
 
 The automation engine does not store a service account password.
 
@@ -176,7 +176,7 @@ Instead:
 * The Windows automation process runs as a **group Managed Service Account (gMSA)**
 * No password needs to be stored in the PowerShell scripts
 
-### ⚖️ Separation of Duties
+### Separation of Duties
 
 The lab includes a Finance + Accounts Payable conflict rule.
 
@@ -192,7 +192,7 @@ Tests included:
 
 ---
 
-## 🕵️ Privileged Access Review
+## Privileged Access Review
 
 I created a read-only security review that examines privileged Active Directory access.
 
@@ -205,7 +205,7 @@ The review checks:
 * AdminSDHolder
 * Unexpected administrative access
 
-### 🚨 Findings
+### Findings
 
 The review successfully found:
 
@@ -218,9 +218,9 @@ The findings were corrected and the review was run again to verify the environme
 
 ---
 
-## 🧠 Design Decisions
+## Design Decisions
 
-### 🆔 Use EmployeeID Instead of Names
+### Use EmployeeID Instead of Names
 
 EmployeeID is used to match:
 
@@ -228,7 +228,7 @@ EmployeeID is used to match:
 
 Names can change or be duplicated. EmployeeID provides a more reliable identity key.
 
-### 🏷️ Use Attributes for Program Access
+### Use Attributes for Program Access
 
 Program access is based on employee attributes rather than moving accounts between OUs.
 
@@ -246,7 +246,7 @@ Old access removed
 New access added
 ```
 
-### 🔽 Remove Before Adding
+### Remove Before Adding
 
 The engine removes outdated access before adding new access.
 
@@ -254,7 +254,7 @@ This follows a **fail-closed** approach:
 
 > If something fails during the process, the employee should have too little access rather than too much.
 
-### 🔄 Only Reverse What the Engine Changed
+### Only Reverse What the Engine Changed
 
 The engine does not blindly re-enable disabled accounts.
 
@@ -262,7 +262,7 @@ It only re-enables accounts that were disabled because they were marked as **Pre
 
 Other disabled accounts are flagged for review.
 
-### 🔎 Detective + Corrective Controls
+### Detective + Corrective Controls
 
 Active Directory cannot prevent every toxic access combination.
 
@@ -277,7 +277,7 @@ The event log can then be monitored by a SIEM.
 
 ---
 
-## 📁 What's in This Repository
+## What's in This Repository
 
 | Path                                                                         | Description                                                  |
 | ---------------------------------------------------------------------------- | ------------------------------------------------------------ |
@@ -298,7 +298,7 @@ The event log can then be monitored by a SIEM.
 
 ---
 
-## 🧪 Evidence
+## Evidence
 
 | Evidence                                | What It Demonstrates                                     |
 | --------------------------------------- | -------------------------------------------------------- |
@@ -310,7 +310,7 @@ The event log can then be monitored by a SIEM.
 
 ---
 
-## 🚀 What I Would Change for Production
+## What I Would Change for Production
 
 This lab is intentionally built in a personal Azure environment. In a production environment, I would:
 
@@ -327,35 +327,28 @@ This lab is intentionally built in a personal Azure environment. In a production
 
 ---
 
-## 🛠️ Skills Demonstrated
+## Skills Demonstrated
 
-### 🔐 Identity & Access Management
+**Identity & Access Management**
 
 Active Directory · Microsoft Entra ID · Hybrid Identity · Identity Lifecycle Management · Joiner/Mover/Leaver (JML) · RBAC · Attribute-Based Access Control · Least Privilege · Separation of Duties · Privileged Access Management
 
-### ☁️ Microsoft & Cloud
+**Microsoft & Cloud**
 
 Azure · Entra Connect Sync · Password Hash Synchronization · Microsoft Graph API · App Registrations · Certificate Authentication · Azure VMs
 
-### ⚙️ Automation
+**Automation**
 
 PowerShell · gMSA · Task Scheduler · HR-driven automation · Audit logging · Automated access reviews
 
-### 🛡️ Security
+**Security**
 
 Admin Tiering · AGDLP · Privileged Access Reviews · AdminSDHolder · Windows Security Events · SIEM Integration · NIST SP 800-171 alignment
 
 ---
 
-## 🎯 Project Goal
+## Project Goal
 
 The goal of this project was not simply to build Active Directory.
 
-It was to build and test an **identity system that controls access throughout the employee lifecycle** — from onboarding, to job changes, to offboarding — while applying:
-
-* Least privilege
-* Automation
-* Secure authentication
-* Separation of duties
-* Privileged access controls
-* Measurable security testing
+It was to build and test an **identity system that controls access throughout the employee lifecycle** — from onboarding, to job changes, to offboarding — while applying least privilege, automation, security controls, and measurable verification.
