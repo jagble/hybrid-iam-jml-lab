@@ -7,8 +7,8 @@ My notes while building this project. Each step covers what I did, why, and anyt
 - [1.2 Build the domain](#12-build-the-domain)
 - [1.3 Admin tiering and access model](#13-admin-tiering-and-access-model)
 - [1.4 Hybrid identity](#14-hybrid-identity)
-- 1.5 Lifecycle automation (JML engine), *in progress*
-- 1.6 Security review, *coming up*
+- [1.5 Lifecycle automation (JML engine)](#15-lifecycle-automation)
+- [1.6 Security review](#16-security-review)
 
 ---
 
@@ -56,7 +56,7 @@ My notes while building this project. Each step covers what I did, why, and anyt
 
 ### Securing admin access (Oct 2)
 - RDP was open to the whole internet when the VM was created, so I removed that rule
-- **Broke:** the free Bastion tier wasn't available on my subscription, and RDP wasn't available on my current pc as I was away from home.
+- **Broke:** the free Bastion tier wasn't available on my subscription, and my work network blocks RDP
 - **Fixed:** used paid Bastion for one session and deleted it after. Now RDP is allowed only from my home IP, and VMs are stopped after every session
 
 ### Promoting the domain controller (Oct 2)
@@ -114,7 +114,7 @@ My notes while building this project. Each step covers what I did, why, and anyt
 - Static IP, joined to the domain with Tier 0 credentials, moved to `Tier0\Servers`
 - **Why:** Entra Connect can read every password hash, so it's Tier 0 and gets its own server instead of sharing the DC
 - **Broke:** the 11 PM auto-shutdown cut off my session
-- **Fixed:** nothing was lost (AD saves changes immediately), and I moved shutdown later for late nights
+- **Fixed:** nothing was lost (AD saves changes immediately). For long sessions I now move the shutdown time later, then put it back
 
 ### Entra Connect Sync (Oct 4)
 - Added `t0-jagble` to Enterprise Admins **just for the install**, then removed it (just-in-time access)
@@ -126,8 +126,10 @@ My notes while building this project. Each step covers what I did, why, and anyt
 - Downloaded the installer on the sync server from Microsoft's portal only, as a one-time exception to "no browsing on Tier 0"
 - Deleted a leftover cloud group from another course so the tenant only has PDS objects
 
+---
+
 ## 1.5 Lifecycle automation
- 
+
 ### Joiner (Oct 4)
 - Built `scripts/03-joiner.ps1` in five small pieces: read the HR roster → match people to AD by EmployeeID → decide create or skip → decide groups → create
 - Ran every piece **read-only** first and checked the decisions before turning on the part that makes changes (`$DryRun` switch)
@@ -139,6 +141,8 @@ My notes while building this project. Each step covers what I did, why, and anyt
   - Synced to Entra: `GG-Role-Radar-Engineers` shows exactly Aisha, Ben, Carlos and Jordan
 - **Broke:** the server clock was on UTC, so at 9 PM Eastern it already thought it was the next day. Hannah would have been enabled a day early
 - **Fixed:** set the server time zone to Eastern before running anything
+- **Gap found:** Hannah's account showed as disabled with no reason. Anyone reviewing AD would have to guess whether she was a pre-hire, a leaver or a suspended account
+- **Fixed:** added a description to Hannah's account (`Pre-start: account disabled until start date 2026-10-05 (HR)`), then updated the joiner so future pre-start accounts get it automatically
 - **Broke:** a leftover test account from the helpdesk test was still in People
 - **Fixed:** deleted it before syncing to Entra
 - **Learned:** synced groups are read-only in Entra (you can't add members there). AD is the source of truth, and changes flow up
@@ -163,6 +167,7 @@ My notes while building this project. Each step covers what I did, why, and anyt
 - **Broke:** my manual sync failed with "Sync is already running." The automatic cycle had started when the server booted. Checked `Get-ADSyncScheduler`, waited, and re-ran it
 - **Design choice:** removals run before adds, so a failure partway through leaves someone with too little access, not too much
 - **Learned:** manual changes need a check afterward, and a check is only as good as what it compares
+
 ### Manual joiner and leaver (Oct 6)
 - Before automating the leaver, I did the full process **by hand** to learn what each step is for
 - **Manual joiner:** created Brian Keller and Erin Walsh in ADUC as if they'd been hired years ago (they're the leaver test cases). Set every field the joiner script sets: logon name, office, title, department, company, manager, `employeeID`, `employeeType`, `division` and birthright + program groups
@@ -179,6 +184,7 @@ My notes while building this project. Each step covers what I did, why, and anyt
   - *Locked out* (too many bad passwords, a helpdesk unlock) is not the same as *disabled* (an admin turned the account off). I mixed these up at first
   - Disabling in AD doesn't end cloud sessions right away. Entra only learns at the next sync, and existing tokens keep working, so revoking sessions closes that gap
   - `Disabled` is in the sync scope on purpose. If the account left the sync scope, Entra would delete the cloud account instead of showing it as disabled
+
 ### Graph access for the engine (Oct 6)
 - The leaver needs to revoke Entra sessions with no person signing in, so the engine got its own identity: app registration `PDS-JML-Engine`
 - **Certificate, not a client secret.** Self-signed certificate created on FRD-DC-01 with a **non-exportable** private key, so the key can't be copied off the server. 6-month expiry, so rotation is forced. Only the public `.cer` was uploaded to Entra. 0 client secrets
@@ -191,6 +197,7 @@ My notes while building this project. Each step covers what I did, why, and anyt
 - **Broke:** the first lookup by employeeId returned **nothing, with no error**, even though the user existed and employeeId was synced (checked by listing users)
 - **Fixed:** filtering on employeeId is an *advanced query* in Graph. It needs a `ConsistencyLevel: eventual` header plus `$count=true`
 - **Learned:** an empty result can look exactly like "this person doesn't exist." In a leaver, that silent miss would leave someone signed in, so the engine must treat "not found in Entra" as an error to report, never as "nothing to do"
+
 ### Leaver + exposure window (Oct 6)
 - Built `scripts/05-leaver.ps1`: same steps as my manual leaver for Erin, in a deliberate order
   - **Cut access first:** disable, scramble password, revoke Entra sessions (via Graph)
@@ -201,21 +208,144 @@ My notes while building this project. Each step covers what I did, why, and anyt
 - **Dry run:** Brian processed, and Erin skipped as "already offboarded," so the script respected my manual work
 - **Setup for the test:** gave Brian a known password and signed in as him. Security defaults forced MFA registration with no skip, so I didn't register a fake user on my phone. Entra still logged the attempt as **Interrupted** (password accepted, stopped at MFA setup)
 - **Measured timeline (real run):**
+
 | Time | Event | After leaver |
 |---|---|---|
 | 06:25:50 | Sign-in as Brian: password **accepted** (Interrupted at MFA setup) | before |
 | 06:35:50 | Last scheduled sync before the leaver ran | before |
 | **06:36:57** | Leaver: AD disabled, password scrambled | 0 s |
 | 06:36:58 | Entra sessions revoked via Graph | 1 s |
-| 06:38:05 | Sign-in with old password **rejected** (50126, invalid password) | 68 s |
+| 06:38:05 | Sign-in attempt failed (50126, invalid password), most likely a typo on my part | 68 s |
+| 06:38:16 | Sign-in with the old password **accepted**, stopped only by MFA registration (50072) | **79 s** |
 | 06:40:01 | Entra: `AccountEnabled` true → false (forced delta sync) | 3 min 4 s |
- 
+
 - **Results:**
   - Existing sessions: killed in **1 second**
-  - Old password: rejected in the cloud within **68 seconds** (password hash sync runs every 2 min on its own)
+  - Old password: **still accepted in the cloud at 79 seconds**. The new password hash hadn't synced yet, and the only thing that stopped the sign-in was MFA
+  - **I first misread this.** I saw the 68-second "invalid password" failure and assumed the password was dead. The full sign-in list showed a successful password check 11 seconds later. One log entry isn't the whole story, so read the full list before drawing a conclusion
   - Account shown as disabled in Entra: **3 min 4 s** with a forced sync. On the 30-minute schedule (last sync 06:35:50), it would have been **~29 minutes**
 - **Learned:**
+  - MFA was the compensating control that actually held during the gap. Without it, a fired employee's password would have worked for at least 79 seconds
   - "Disabled in AD" is not "out of the cloud." There are three separate clocks: sessions (revoke), password (hash sync) and account state (full sync)
   - A synced user's enabled state can't be changed in Entra directly, because AD is the source of truth, so the fix for the last clock is triggering a sync, not editing the cloud
 - **Next improvement:** have the leaver trigger a delta sync on FRD-SYNC-01 itself, so the ~29 minute window doesn't depend on someone remembering
- 
+
+### Separation of duties (Oct 7)
+- Rule from the role map: nobody holds both `GG-Role-Finance` and `GG-Role-AccountsPayable` (one person could create a fake vendor and approve its invoice)
+- **Manual review first:** added Maria Lopez (AP Clerk) to Finance as a "helpdesk mistake," then found her by comparing the Members tabs of both groups, checked the exceptions register, and removed Finance (AP is her job per HR)
+- **Then automated it:** `scripts/06-sod-check.ps1`
+  - Finds anyone in both groups (`-Recursive`, so nesting can't hide a conflict)
+  - Checks `data/sod-exceptions.csv`. An exception only counts if it's not expired, 14 days or shorter, and approved by someone other than the person or their own manager
+  - No valid exception: keeps the group that matches their job in HR, removes the other, and raises an alert. If it can't tell which is their job, it flags REVIEW and changes nothing
+  - Alerts go to a CSV (for auditors) and the Windows Application event log, source `PDS-JML` (for a SIEM): 5001 denied, 5002 allowed by exception, 5003 review
+- **Tests:**
+
+| Test | Exception | Result |
+|---|---|---|
+| Maria added to Finance | none | **DENIED**, Finance removed, event 5001 |
+| Maria added to Finance | approved by Security (Monica Hayes), 7 days, compensating control | **ALLOWED**, kept, warning 5002 |
+| Maria added to Finance | approved by her own manager (CFO) | **DENIED**, Finance removed, event 5001 |
+
+- **Broke:** twice the script said "No conflicts" after I thought I'd added Maria to Finance in ADUC. The change hadn't saved. Re-added with PowerShell and confirmed membership before testing
+- **Learned:**
+  - This is a **detective + corrective** control, not a preventive one. AD has no setting that blocks the combination, so a conflict can exist between runs. That's why the check needs a schedule
+  - Two logs tell the full story: the Security log (4728/4729) shows *who changed the group and when*; the PDS-JML events show *what the control decided*
+  - With a corrective control live, every run acts, so test setups have to happen right before the run being tested
+- **Known limitation:** the mover doesn't read the exceptions register, so its next run would remove an approved exception group. In production, exceptions would be granted and tracked through the same system (an IGA tool) so the controls agree
+
+### Leaver triggers its own sync (Oct 7)
+- Added a step to the leaver: if anyone was offboarded, it runs `Start-ADSyncSyncCycle -PolicyType Delta` on FRD-SYNC-01 through PowerShell Remoting
+- If the sync can't start (already running, server off), the leaver logs it and moves on. The 30-minute schedule is the fallback, and a failed sync never undoes the offboarding
+- Closes the ~29-minute "account still enabled in Entra" gap I measured, without relying on someone remembering to force a sync
+
+### Scheduled engine with a gMSA (Oct 7)
+- The engine now runs every day as a scheduled task, with nobody signed in
+- **Who it runs as:** a group Managed Service Account, `gmsa-jml`. Nobody knows its password: AD generates it and rotates it every 30 days, and only `FRD-DC-01$` can retrieve it. Not my admin account (that would put a Domain Admin password in a task) and not a Domain Admin
+  - Created a KDS root key first. I backdated it 10 hours as a lab shortcut, since there's only one DC to replicate to. In production I'd create it and wait
+  - `gmsa-jml` lives in `PDS\ServiceAccounts`, which is outside the sync scope, so it never appears in Entra
+- **Rights granted to a group (`GG-Svc-JML-Engine`), not the account**, so the gMSA can be swapped later without redoing anything:
+
+| Right | Scope | Why |
+|---|---|---|
+| Create, delete, manage user accounts | `People`, `Disabled` | Joiner creates, mover edits, leaver disables and moves |
+| Modify group membership | `Groups\Role` only | Every script changes role groups |
+| Log on as a batch job | Default Domain Controllers Policy | Required to run as a scheduled task on a DC |
+| Modify | `C:\PDS\logs` | Write logs |
+| Read private key | Graph certificate (certlm) | Sign in to Graph as PDS-JML-Engine |
+| Remote Management Users + ADSyncOperators | FRD-SYNC-01 | Trigger a delta sync |
+
+  - It has no admin rights anywhere and can't touch admin accounts, admin groups, resource groups, servers or GPOs
+- **Broke:** the Delegation wizard's picker can't find gMSAs, even with the "Computers" object type and the `$` suffix. **Fixed:** delegated to a group and added the gMSA to the group with PowerShell. That's the better pattern anyway
+- **Broke:** I ran the role-group delegation on `PDS\Groups` instead of `PDS\Groups\Role`. That would have let the engine change **resource group** membership (like `DL-Share-Radar-CUI-Modify`), a back door around the CUI checks. **Fixed:** removed the entries in Security → Advanced, redid it on `Role`, and confirmed with `Get-Acl` that nothing was left on `Groups`
+- **Scripts are now dry-run by default.** Each one has `param([switch]$Apply)`. Run by hand, it only prints. Only the wrapper `run-jml.ps1` passes `-Apply`, and only the scheduled task runs the wrapper
+- `run-jml.ps1` runs joiner → mover → leaver → SoD, records everything with `Start-Transcript` to a dated log, writes `whoami` at the top as proof of who ran it, and keeps going if one script fails
+- **Schedule:** daily at 8:00 PM. In production it'd be early morning before the workday, but the lab VMs are off most of the day to save money
+- **First run:** `LastTaskResult 0`, `RunAs User: PDS\gmsa-jml$`. All four scripts ran, including Graph sign-in with the certificate
+
+### Scale test: 340 people (Oct 7)
+- Generated a 340-person roster (my original 26 + 314 new) and a "next morning" version with 22 HR changes, plus an answer key of expected results. Generated with LLM help
+- **Day 1 (306 new hires):**
+  - 306 accounts created, 6 of them disabled until a future start date, 33 program access denials. AD count afterward: **330 accounts in People, 6 disabled**, exactly as expected
+  - The mover then set **306 managers** (329 of 330 people have one; the CEO doesn't)
+- **Broke (the big one): my "dry run" wasn't dry.** Before the run, I did a dry-run pre-check of the joiner to count CREATE decisions. The joiner was the one script that never got the `-Apply` switch (it still said `$DryRun = $false`), so the "pre-check" **created all 306 accounts as me**
+  - Found it because the task's PowerShell process had used **0.8 seconds of CPU in 45 minutes**, far too little to have created 306 accounts, and the new accounts' **owner** was `PDS\Domain Admins`, not `gmsa-jml$`
+  - The task, started while my run was still going, sat waiting on something with no one to answer. The mover never started (manager count frozen at 23)
+  - **Fixed:**
+    - Added the switch to the joiner
+    - Verified all four scripts expose `-Apply` with `Get-Command` *without running them*
+    - Added `-NonInteractive` to the task, so anything that ever prompts fails immediately with an error instead of hanging
+    - Re-ran: the mover set all 306 managers as the gMSA in about 2 minutes
+  - **Learned:** verify the safety switch itself before trusting it. Unattended jobs need `-NonInteractive`. Object ownership in AD shows who really created something
+- **Day 2 (HR changes overnight), run by the gMSA. Every result matched the answer key:**
+
+| Change | People | Result |
+|---|---|---|
+| New hires | 5 | 5 created, 2 disabled until future start dates |
+| Program transfer, approved | 4 | old program group removed, new one added |
+| Program transfer, not approved yet | 2 | old group removed, no new access |
+| Engineering → Program Management | 2 | program group + Engineers removed, ProgramManagers added, new manager |
+| Manager change | 2 | manager updated |
+| Terminated / contract ended | 8 | disabled, sessions revoked, groups removed, moved to Disabled. All 8 found in Entra, 0 errors |
+| Sync | 1 | `SYNC triggered on FRD-SYNC-01 for 8 leaver(s)`. ADSyncOperators was enough; the gMSA didn't need ADSyncAdmins |
+
+- **Speed:** the 8 leavers took about 4 seconds, and the sync was triggered 5 seconds later
+- **Scaling note:** the engine looks up AD one person at a time (thousands of requests for 340 people). That's fine at this size, but at 10,000+ people I'd load all users once at the start and look them up in memory
+
+---
+
+## 1.6 Security review
+
+### Hidden Domain Admin + privileged access review (Oct 7)
+- **Scenario:** a "previous admin" left a privilege path behind. I created `IT-Legacy-Tools` in the default `Users` container, put **Tyler Nguyen** (a normal helpdesk user) in it, and nested it into **Domain Admins**. Opening Domain Admins → Members only shows a boring group name, and Tyler's own Member Of tab doesn't mention Domain Admins
+- **Built `scripts/07-privileged-access-review.ps1` (read-only by design):**
+  - Expands 12 privileged groups (Domain/Enterprise/Schema Admins, Administrators, Account/Server/Backup/Print Operators, DnsAdmins, GPO Creator Owners, Key Admins) **recursively, keeping the path**, so nesting can't hide anyone
+  - Compares every account to an approved Tier 0 list with a reason for each
+  - Flags AdminSDHolder leftovers (`adminCount=1` on accounts that are no longer privileged)
+  - Shows last logon for approved accounts, and saves a CSV report
+- **Findings:**
+
+| # | Finding | Severity | Fix |
+|---|---|---|---|
+| 1 | `Domain Admins <- IT-Legacy-Tools <- Tyler Nguyen`, plus the same path into **Administrators** (Domain Admins is nested there) | Critical | Removed the nesting, deleted the group |
+| 2 | **Standing** Enterprise Admins + Schema Admins: the built-in Administrator (`pdsbootstrap`) is placed there automatically when the forest is created. I didn't plant this; my "Enterprise Admins is just-in-time" design wasn't actually true | High | Removed it from both. Both groups are now empty until needed |
+| 3 | AdminSDHolder orphan: Tyler kept `adminCount=1` and blocked inheritance after being removed | Medium | Re-enabled inheritance, cleared `adminCount` |
+
+- **Investigated before cleaning up:** queried the Security log for event **4728** (member added to a security group) filtered to Domain Admins. That gave the full history of every Domain Admins addition:
+  1. 10/2 3:37 PM, `ANONYMOUS LOGON` → pdsbootstrap. Expected: this is domain creation itself
+  2. 10/2 4:47 PM, pdsbootstrap → my Tier 0 account. Expected
+  3. **10/7 9:55 PM, t0-jagble → IT-Legacy-Tools.** The finding
+  - **Learned:** "ANONYMOUS LOGON added someone to Domain Admins" looks alarming but is normal at domain creation, so context comes before alarm. Thousands of 4728s from the scale test buried this one event, so a filtered query (basically a SIEM rule: *alert on any Domain Admins addition*) found it in seconds
+- **AdminSDHolder, seen live:** triggered SDProp manually (`runProtectAdminGroupsTask`) instead of waiting an hour. Tyler got `adminCount=1` and **inheritance blocked**. Removing him from the group did **not** undo either one
+- **Proved the impact as the helpdesk (`t2-jagble`):**
+
+| Test | Result |
+|---|---|
+| Reset Derek Hall (normal user, control) | ✅ Allowed |
+| Reset Tyler (orphan) | ⛔ **Access is denied** |
+| Reset Tyler after re-enabling inheritance + clearing `adminCount` | ✅ Allowed |
+
+  - Why it matters: an ex-admin the helpdesk can't support turns every lockout into a Tier 0 escalation. Enough of those and admins start "just doing it themselves," which erodes the tiering model
+- **Final review:** no findings, Enterprise Admins + Schema Admins empty, no orphans. The break-glass account was last used 10/2 (domain build), as expected
+- **Limits and next steps:**
+  - My script approves an *account* for every privileged group. A better version approves account + group pairs (break-glass in Domain Admins: OK; standing Enterprise Admins: not OK)
+  - It only sees privilege granted through **group membership**. Rights granted directly on objects, like the Entra Connect account's directory replication rights, need a graph tool like BloodHound to see
