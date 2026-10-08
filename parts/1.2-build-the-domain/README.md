@@ -32,7 +32,7 @@ So I pulled the quota report, found families that actually had cores available, 
 
 When the VM was created, RDP was open to the whole internet. I deleted that rule right away.
 
-Then I couldn't get in either. The free Bastion tier wasn't available on my subscription, and my work network blocks RDP. I used paid Bastion for one session, deleted it afterward, and replaced the rule with **RDP allowed only from my home IP**. VMs are stopped after every session.
+I replaced the rule with **RDP allowed only from my home IP**. VMs are stopped after every session.
 
 ## Step 4: Give the DC a static IP (in Azure, not Windows)
 
