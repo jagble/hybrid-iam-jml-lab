@@ -1,42 +1,59 @@
-# PDS Identity Foundation
+# 🏢 PDS Identity Foundation
 
-**Hybrid Active Directory + Microsoft Entra ID, run by an HR-driven joiner/mover/leaver engine**
+**Hybrid Active Directory + Microsoft Entra ID with automated Joiner, Mover, and Leaver (JML) processes**
 
-I built the identity foundation for a fictional defense contractor, Potomac Defense Systems (PDS): a tiered AD domain synced to Entra ID, an engine that creates, changes and removes access based on an HR file, and the controls around it (separation of duties, measured offboarding, a privileged access review). Then I tested it with 340 people and planted a hidden Domain Admin to see if my review would catch it.
+I built a hybrid identity environment for a fictional defense contractor, **Potomac Defense Systems (PDS)**.
 
-> **About this lab:** PDS is a fictional defense and space contractor. Every person, account, program and piece of data is made up, and nothing is classified. The lab runs in my own Azure subscription and Entra ID tenant. HR data was generated with LLM help, and the PowerShell scripts were drafted with LLM help. I designed the controls, ran every script, broke things, fixed them and verified the results myself. The [six walkthroughs](#walk-through-the-lab) have the full story, including the mistakes.
+The lab combines:
+
+* Active Directory
+* Microsoft Entra ID
+* PowerShell automation
+* HR-driven identity lifecycle management
+* Role-based access control (RBAC)
+* Separation of duties (SoD)
+* Privileged access reviews
+* Secure service accounts and application authentication
+
+I tested the environment with **340 employees**, measured the offboarding process, and performed a security review that successfully found a hidden Domain Admin account.
+
+> **About this lab:** PDS is a fictional defense and space contractor. All people, accounts, programs, and data are fictional. The lab runs in my own Azure subscription and Entra ID tenant. HR data and some initial PowerShell code were created with LLM assistance. I designed the identity controls, executed the scripts, tested the environment, troubleshot failures, and verified the results myself. The six walkthroughs document the full build, including mistakes and fixes.
 
 ---
 
-## Results at a glance
+## 📊 Results at a Glance
 
-| What | Result |
-|---|---|
-| **Identities managed from HR** | 340 people (306 created in one run), then 22 overnight HR changes. Every result matched a pre-written answer key |
-| **Offboarding, measured** | Sessions revoked in **1 s**. Old password still worked in the cloud at **79 s**. Account shown disabled in Entra after **3 min** with a forced sync vs **~29 min** on the default schedule, so the leaver now triggers the sync itself |
-| **Secrets in the engine** | **Zero.** Graph uses a certificate with a non-exportable key; the engine runs as a gMSA nobody knows the password to |
-| **Least privilege for automation** | Graph app: 2 permissions. Engine account: no admin rights anywhere, delegated only on `People`, `Disabled` and role groups |
-| **Separation of duties** | Finance + Accounts Payable conflict: denied, allowed only with a valid exception, denied when the "approval" came from the person's own manager. 3/3 tests passed |
-| **Privileged access review** | Found a Domain Admin hidden behind a nested group, plus standing Enterprise/Schema Admins I didn't plant, plus an AdminSDHolder leftover that broke helpdesk resets. All fixed and re-verified |
+| Area                         | Result                                                                                                              |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **Identity lifecycle**       | Managed **340 employees**, including 306 created in one run and 22 overnight HR changes                             |
+| **Offboarding**              | Entra sessions revoked in **1 second**. Old password remained usable in the cloud for **79 seconds** during testing |
+| **Sync improvement**         | Entra account showed disabled after **~3 minutes** with a forced sync vs. **~29 minutes** on the default schedule   |
+| **Secrets**                  | **Zero passwords or client secrets** stored in the automation engine                                                |
+| **Automation security**      | Microsoft Graph app uses certificate authentication; automation runs as a gMSA                                      |
+| **Least privilege**          | Graph app has only **2 permissions**; automation account has no administrative rights                               |
+| **Separation of duties**     | **3/3 tests passed** for Finance + Accounts Payable conflicts                                                       |
+| **Privileged access review** | Found a hidden Domain Admin, unexpected Enterprise/Schema Admin membership, and an AdminSDHolder issue              |
 
-## Walk through the lab
+---
 
-The build is split into six parts. Each one is a step-by-step walkthrough in the order I did it, with annotated screenshots, including what broke and how I fixed it. Start at 1.1 and follow the links at the bottom of each page.
+## 🧭 Project Walkthrough
 
-| Part | What happens | Highlights |
-|:---:|---|---|
-| [**1.1**<br>Plan and design](parts/1.1-plan-and-design/README.md) | OU design by security tier, a role map, and an HR roster with six planted edge cases | Why "make her like Bob" is the wrong way to grant access |
-| [**1.2**<br>Build the domain](parts/1.2-build-the-domain/README.md) | Budget alerts, a domain controller in Azure, DNS, 21 OUs | Three failed VM deployments, and what they taught me about quotas |
-| [**1.3**<br>Admin tiering](parts/1.3-admin-tiering/README.md) | `t0-`/`t1-`/`t2-` admin accounts, role and resource groups (AGDLP), helpdesk delegation | Tested as the helpdesk: allowed on a user, **Access is denied** on an admin |
-| [**1.4**<br>Hybrid identity](parts/1.4-hybrid-identity/README.md) | Entra Connect Sync on its own Tier 0 server, OU filtering, just-in-time Enterprise Admin | Only 3 OUs reach the cloud. Admin accounts never do |
-| [**1.5**<br>Lifecycle automation](parts/1.5-lifecycle-automation/README.md) | The JML engine: joiner, mover, leaver, SoD check, Graph app, gMSA, 340-person scale test | A fired employee's old password still worked at **79 s**. My "dry run" wasn't dry |
-| [**1.6**<br>Security review](parts/1.6-security-review/README.md) | A planted hidden Domain Admin, a review that traces nesting, event 4728, AdminSDHolder | Found my planted problem, plus two I didn't plant |
+The project is divided into six stages:
+
+|                                    Part                                    | What I Built                                                                         | Key Takeaway                                                                      |
+| :------------------------------------------------------------------------: | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
+|       [**1.1 — Plan & Design**](parts/1.1-plan-and-design/README.md)       | Security-tiered OUs, role model, HR roster, and access rules                         | Access should be based on roles and attributes, not copying another user's access |
+|     [**1.2 — Build the Domain**](parts/1.2-build-the-domain/README.md)     | Azure domain controller, DNS, 21 OUs, and budget controls                            | Troubleshot multiple VM deployment and quota issues                               |
+|        [**1.3 — Admin Tiering**](parts/1.3-admin-tiering/README.md)        | Tier 0/1/2 admin accounts, AGDLP groups, and helpdesk delegation                     | Helpdesk could manage users but could not manage privileged accounts              |
+|      [**1.4 — Hybrid Identity**](parts/1.4-hybrid-identity/README.md)      | Entra Connect Sync, OU filtering, and Tier 0 protection                              | Only approved OUs sync to Entra; admin accounts remain on-premises                |
+| [**1.5 — Lifecycle Automation**](parts/1.5-lifecycle-automation/README.md) | PowerShell JML engine, Graph API, gMSA, SoD checks, and 340-user test                | Measured the real-world impact of offboarding delays                              |
+|      [**1.6 — Security Review**](parts/1.6-security-review/README.md)      | Privileged group review, nested group analysis, event 4728, and AdminSDHolder checks | Found both planted and previously unknown privilege issues                        |
 
 ![Measured offboarding timeline](evidence/screenshots/1.5-leaver-exposure-timeline.png)
 
 ---
 
-## Architecture
+## 🏗️ Architecture
 
 ```text
  HR roster (CSV)                       Microsoft Entra ID
@@ -59,63 +76,286 @@ The build is split into six parts. Each one is a step-by-step walkthrough in the
  └─────────────────────────┘
 ```
 
-- **Two VMs in Azure:** `FRD-DC-01` (domain controller) and `FRD-SYNC-01` (Entra Connect Sync, no inbound ports, reached only through the DC)
-- **Synced to Entra:** only `People`, `Groups\Role` and `Disabled`. Admin accounts, service accounts and resource groups never leave AD
-- **AD is the source of truth.** Synced groups are read-only in Entra, and changes flow up
+### ☁️ Environment
 
-## What's in this repo
+* **Azure VMs**
 
-| Path | What it is |
-|---|---|
-| [`parts/`](parts/) | The six walkthroughs, each with its own annotated screenshots |
-| [`docs/01-directory-design.md`](docs/01-directory-design.md) | OU design by security tier, admin tiering, group model (AGDLP), sync scope |
-| [`docs/02-role-map.md`](docs/02-role-map.md) | Birthright vs conditional access, program checks (CUI training, US person, PM approval), SoD rules, exceptions |
-| [`docs/03-jml-runbook.md`](docs/03-jml-runbook.md) | How to do joiner, mover, leaver and SoD by hand, and what the engine does instead |
-| [`docs/04-privileged-access-review.md`](docs/04-privileged-access-review.md) | Findings report from the security review |
-| [`docs/build-log.md`](docs/build-log.md) | The condensed notes version of all six parts |
-| `scripts/03-joiner.ps1` | Creates accounts from HR: birthright groups, program groups only when all checks pass, future hires disabled |
-| `scripts/04-mover.ps1` | Fixes drift: start dates, program transfers, job-role groups, managers |
-| `scripts/05-leaver.ps1` | Disables, scrambles password, revokes Entra sessions (Graph), cleans up, triggers a sync |
-| `scripts/06-sod-check.ps1` | Finance + AP conflict check with an exceptions register and event log alerts |
-| `scripts/07-privileged-access-review.ps1` | Read-only review of 12 privileged groups, nested paths, AdminSDHolder leftovers |
-| `scripts/run-jml.ps1` | Runs the engine in order with a full transcript. Used by the scheduled task |
-| `data/` | Original 26-person HR roster, the 340-person scale test rosters, the answer key, the SoD exceptions register |
-| `evidence/` | Logs the system actually produced, and screenshots |
+  * `FRD-DC-01` — Domain Controller
+  * `FRD-SYNC-01` — Entra Connect Sync server
+* `FRD-SYNC-01` has **no inbound ports** and is accessed through the domain controller
+* Active Directory is the **source of truth**
+* Password Hash Synchronization (PHS) is used for Entra synchronization
+* Only approved OUs are synchronized to Entra
+* Administrative and service accounts remain on-premises
 
-## Design decisions worth asking me about
+### 🔄 Entra Sync Scope
 
-- **EmployeeID, never names.** Every match (HR to AD, AD to Entra, manager links) uses EmployeeID. Names change and repeat
-- **Program access is an attribute, not an OU.** A transfer is a data change, not an account move
-- **Cut access before cleanup, remove before add.** If a run fails halfway, the person ends up with too little access, never too much
-- **The engine only reverses what it did.** It re-enables "Pre-start" accounts only; anything else disabled is flagged for review
-- **Certificate over client secret, gMSA over a service account password.** No secret exists for someone to leak into a script, a chat or GitHub
-- **Detective + corrective, not just preventive.** AD can't block a toxic group combination, so the SoD check runs on a schedule and alerts to the event log for a SIEM
+Only these areas are synchronized:
 
-## Evidence
+* `People`
+* `Groups\Role`
+* `Disabled`
 
-| File | Shows |
-|---|---|
-| `evidence/logs/jml-run-*.log` | Day 2 of the scale test, run by `PDS\gmsa-jml$`: 5 joiners, 10 movers, 8 leavers, sync triggered |
-| `evidence/logs/leaver-*.csv` | Timestamped leaver audit trail |
-| `evidence/logs/sod-alerts.csv` | SoD decisions: denied, allowed by exception, denied |
-| `evidence/logs/privileged-review-*.csv` | Final clean privileged access review |
-| [`evidence/`](evidence/README.md) | Every screenshot, named by build section, in one gallery |
+The following remain in Active Directory:
 
-## What I'd do differently in production
-
-- Run the engine from a dedicated **Tier 0 management server**, not a domain controller
-- Put requests, approvals and SoD exceptions in an **IGA tool** (Entra ID Governance, SailPoint), so the mover and SoD check agree on approved exceptions
-- Add a **Conditional Access block group** for leavers, so the cloud block doesn't depend on sync at all
-- **Load AD once per run** instead of one lookup per person, for 10,000+ users
-- Send `PDS-JML` events to a **SIEM** (Sentinel or Splunk) and alert on any Domain Admins change
-- Approve privileged access per **account + group**, and add **BloodHound** to see ACL-based paths a group review can't
-- No RDP from home IPs: **Bastion or Just-In-Time VM access**, and the KDS root key created a day ahead instead of backdated
-- **Delete** accounts after the 30-day retention in `Disabled`, with the certificate in Key Vault or an HSM and a rotation runbook
-
-## Skills
-
-Active Directory design and administration · admin tiering · delegation · AGDLP · RBAC and attribute-based program access · Entra Connect Sync (password hash sync, OU filtering) · Microsoft Graph API · app registrations with certificate auth · PowerShell automation · group Managed Service Accounts · Task Scheduler · separation of duties · privileged access review · AdminSDHolder · Windows Security event analysis · NIST SP 800-171 alignment (CUI, personnel actions)
+* Tier 0/1/2 administrative accounts
+* Service accounts
+* Resource groups
 
 ---
 
-Built by **Josh Agble** · [github.com/jagble](https://github.com/jagble)
+## 🔄 Identity Lifecycle Automation
+
+The JML engine processes employee changes from an HR CSV.
+
+### 👤 Joiner
+
+Creates new employees and assigns access based on:
+
+* Department
+* Job role
+* Program
+* Start date
+* Required training
+* Eligibility requirements
+
+### 🔁 Mover
+
+Updates access when an employee changes:
+
+* Department
+* Job role
+* Program
+* Manager
+* Start date
+
+### 🚪 Leaver
+
+When an employee leaves, the engine:
+
+1. Disables the AD account
+2. Randomizes the password
+3. Revokes Entra sessions through Microsoft Graph
+4. Removes access managed by the engine
+5. Moves the account to the disabled area
+6. Triggers an Entra sync
+7. Records the actions in an audit log
+
+### ⏱️ Offboarding Test
+
+During testing, I found that an employee's old password could still work in the cloud **79 seconds after offboarding began**.
+
+This exposed an important identity-management issue:
+
+> Disabling an on-premises account does not automatically mean cloud access disappears immediately.
+
+I changed the process so the leaver workflow **revokes cloud sessions and triggers synchronization immediately**.
+
+---
+
+## 🔐 Security Controls
+
+### 🔑 Least Privilege
+
+The automation engine follows least-privilege principles.
+
+* Microsoft Graph application uses only **2 permissions**
+* Automation account has **no administrative rights**
+* Access is delegated only to the required areas
+* Helpdesk permissions are limited to normal user accounts
+* Privileged accounts are protected by administrative tiering
+
+### 🔒 Secure Authentication
+
+The automation engine does not store a service account password.
+
+Instead:
+
+* Microsoft Graph uses **certificate authentication**
+* The certificate uses a **non-exportable key**
+* The Windows automation process runs as a **group Managed Service Account (gMSA)**
+* No password needs to be stored in the PowerShell scripts
+
+### ⚖️ Separation of Duties
+
+The lab includes a Finance + Accounts Payable conflict rule.
+
+The system tests whether a person receives conflicting access and checks for approved exceptions.
+
+Tests included:
+
+* Conflict denied
+* Valid exception allowed
+* Self-approved exception denied
+
+**Result: 3/3 tests passed**
+
+---
+
+## 🕵️ Privileged Access Review
+
+I created a read-only security review that examines privileged Active Directory access.
+
+The review checks:
+
+* Privileged groups
+* Nested group membership
+* Group membership paths
+* Windows Security Event ID 4728
+* AdminSDHolder
+* Unexpected administrative access
+
+### 🚨 Findings
+
+The review successfully found:
+
+* A hidden **Domain Admin** through nested group membership
+* Unexpected **Enterprise Admin** membership
+* Unexpected **Schema Admin** membership
+* An **AdminSDHolder** issue affecting helpdesk password resets
+
+The findings were corrected and the review was run again to verify the environment was clean.
+
+---
+
+## 🧠 Design Decisions
+
+### 🆔 Use EmployeeID Instead of Names
+
+EmployeeID is used to match:
+
+**HR → AD → Entra → Manager relationships**
+
+Names can change or be duplicated. EmployeeID provides a more reliable identity key.
+
+### 🏷️ Use Attributes for Program Access
+
+Program access is based on employee attributes rather than moving accounts between OUs.
+
+For example:
+
+```text
+Employee transfers programs
+        ↓
+Update employee attributes
+        ↓
+JML engine evaluates access
+        ↓
+Old access removed
+        ↓
+New access added
+```
+
+### 🔽 Remove Before Adding
+
+The engine removes outdated access before adding new access.
+
+This follows a **fail-closed** approach:
+
+> If something fails during the process, the employee should have too little access rather than too much.
+
+### 🔄 Only Reverse What the Engine Changed
+
+The engine does not blindly re-enable disabled accounts.
+
+It only re-enables accounts that were disabled because they were marked as **Pre-start**.
+
+Other disabled accounts are flagged for review.
+
+### 🔎 Detective + Corrective Controls
+
+Active Directory cannot prevent every toxic access combination.
+
+Therefore, the SoD process:
+
+1. Detects conflicting access
+2. Checks for an approved exception
+3. Records the decision
+4. Generates an event log alert
+
+The event log can then be monitored by a SIEM.
+
+---
+
+## 📁 What's in This Repository
+
+| Path                                                                         | Description                                                  |
+| ---------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| [`parts/`](parts/)                                                           | Six detailed walkthroughs with screenshots                   |
+| [`docs/01-directory-design.md`](docs/01-directory-design.md)                 | OU structure, admin tiering, AGDLP, and sync scope           |
+| [`docs/02-role-map.md`](docs/02-role-map.md)                                 | Birthright access, program access, SoD rules, and exceptions |
+| [`docs/03-jml-runbook.md`](docs/03-jml-runbook.md)                           | Manual JML procedures and automated equivalents              |
+| [`docs/04-privileged-access-review.md`](docs/04-privileged-access-review.md) | Privileged access review findings                            |
+| [`docs/build-log.md`](docs/build-log.md)                                     | Condensed build notes                                        |
+| `scripts/03-joiner.ps1`                                                      | Creates users and assigns initial access                     |
+| `scripts/04-mover.ps1`                                                       | Updates access when employee information changes             |
+| `scripts/05-leaver.ps1`                                                      | Handles offboarding and cloud session revocation             |
+| `scripts/06-sod-check.ps1`                                                   | Detects Finance + AP conflicts                               |
+| `scripts/07-privileged-access-review.ps1`                                    | Reviews privileged groups and nested access                  |
+| `scripts/run-jml.ps1`                                                        | Runs the complete JML process                                |
+| `data/`                                                                      | HR rosters, answer keys, and SoD exception data              |
+| `evidence/`                                                                  | Logs, screenshots, and test evidence                         |
+
+---
+
+## 🧪 Evidence
+
+| Evidence                                | What It Demonstrates                                     |
+| --------------------------------------- | -------------------------------------------------------- |
+| `evidence/logs/jml-run-*.log`           | JML engine processing joiners, movers, leavers, and sync |
+| `evidence/logs/leaver-*.csv`            | Timestamped offboarding activity                         |
+| `evidence/logs/sod-alerts.csv`          | SoD decisions and exceptions                             |
+| `evidence/logs/privileged-review-*.csv` | Final privileged access review                           |
+| [`evidence/`](evidence/README.md)       | Screenshot gallery of the project                        |
+
+---
+
+## 🚀 What I Would Change for Production
+
+This lab is intentionally built in a personal Azure environment. In a production environment, I would:
+
+* Run the JML engine from a dedicated **Tier 0 management server**
+* Use an **IGA platform** such as Entra ID Governance or SailPoint for access requests and approvals
+* Add a **Conditional Access block group** for immediate cloud blocking of leavers
+* Optimize AD queries for environments with **10,000+ users**
+* Send JML and privileged access events to a **SIEM** such as Microsoft Sentinel or Splunk
+* Use **BloodHound** to identify ACL-based privilege paths
+* Replace direct RDP access with **Azure Bastion or Just-In-Time VM access**
+* Store certificates in **Azure Key Vault or an HSM**
+* Add certificate rotation and expiration procedures
+* Delete disabled accounts after the required retention period
+
+---
+
+## 🛠️ Skills Demonstrated
+
+### 🔐 Identity & Access Management
+
+Active Directory · Microsoft Entra ID · Hybrid Identity · Identity Lifecycle Management · Joiner/Mover/Leaver (JML) · RBAC · Attribute-Based Access Control · Least Privilege · Separation of Duties · Privileged Access Management
+
+### ☁️ Microsoft & Cloud
+
+Azure · Entra Connect Sync · Password Hash Synchronization · Microsoft Graph API · App Registrations · Certificate Authentication · Azure VMs
+
+### ⚙️ Automation
+
+PowerShell · gMSA · Task Scheduler · HR-driven automation · Audit logging · Automated access reviews
+
+### 🛡️ Security
+
+Admin Tiering · AGDLP · Privileged Access Reviews · AdminSDHolder · Windows Security Events · SIEM Integration · NIST SP 800-171 alignment
+
+---
+
+## 🎯 Project Goal
+
+The goal of this project was not simply to build Active Directory.
+
+It was to build and test an **identity system that controls access throughout the employee lifecycle** — from onboarding, to job changes, to offboarding — while applying:
+
+* Least privilege
+* Automation
+* Secure authentication
+* Separation of duties
+* Privileged access controls
+* Measurable security testing
