@@ -1,0 +1,347 @@
+EmployeeID,FirstName,LastName,WorkerType,Department,JobTitle,Office,ManagerID,Program,CUITraining,USPerson,ProgramApproved,StartDate,EndDate,Status
+100100,Diane,Whitaker,Employee,Executive,Chief Executive Officer,Fredericksburg,,,Yes,Yes,,2015-03-02,,Active
+100101,Marcus,Bell,Employee,Finance,Chief Financial Officer,Fredericksburg,100100,,Yes,Yes,,2017-06-12,,Active
+100102,Priya,Raman,Employee,Engineering,Director of Engineering,Dahlgren,100100,,Yes,Yes,,2016-01-11,,Active
+100103,Tom,Haskins,Employee,Program Management,Program Manager,Dahlgren,100100,Radar,Yes,Yes,Yes,2018-09-04,,Active
+100104,Elena,Vasquez,Employee,Program Management,Program Manager,Chantilly,100100,Satellite,Yes,Yes,Yes,2019-02-18,,Active
+100105,Gregory,Okafor,Employee,Program Management,Program Manager,Dahlgren,100100,Shipboard,Yes,Yes,Yes,2020-05-26,,Active
+100110,Josh,Agble,Employee,IT,IAM Engineer,Fredericksburg,100100,,Yes,Yes,,2022-08-01,,Active
+100119,Jordan,Carter,Employee,Engineering,Systems Engineer,Dahlgren,100102,Radar,Yes,Yes,Yes,2021-09-13,,Active
+100120,Aisha,Patel,Employee,Engineering,Systems Engineer,Dahlgren,100102,Shipboard,Yes,Yes,Yes,2021-03-15,,Active
+100121,Ben,Lawson,Employee,Engineering,Software Engineer,Dahlgren,100102,Radar,Yes,Yes,Yes,2022-11-07,,Active
+100122,Kevin,Tran,Employee,Engineering,Systems Engineer,Chantilly,100102,Satellite,Yes,Yes,Yes,2020-07-20,,Active
+100123,Rachel,Moore,Employee,Engineering,RF Engineer,Dahlgren,100102,Shipboard,Yes,Yes,Yes,2023-01-09,,Active
+100124,Samuel,Reyes,Employee,Engineering,Software Engineer,Dahlgren,100102,Radar,No,Yes,Yes,2026-09-21,,Active
+100125,Nathan,Brooks,Employee,Engineering,Systems Engineer,Chantilly,100102,Satellite,Yes,No,Yes,2025-04-14,,Active
+100126,Olivia,Grant,Employee,Engineering,Software Engineer,Fredericksburg,100102,Radar,Yes,Yes,No,2024-06-03,,Active
+100127,Chris,Douglas,Employee,Engineering,Systems Engineer,Dahlgren,100102,,Yes,Yes,,2023-10-16,,Active
+100128,Hannah,Price,Employee,Engineering,Software Engineer,Chantilly,100102,Satellite,Yes,Yes,Yes,2026-10-05,,Active
+100129,Brian,Keller,Employee,Engineering,Systems Engineer,Dahlgren,100102,Shipboard,Yes,Yes,Yes,2019-08-12,2026-09-25,Terminated
+100130,Maria,Lopez,Employee,Finance,Accounts Payable Clerk,Fredericksburg,100101,,Yes,Yes,,2021-05-03,,Active
+100131,Derek,Hall,Employee,Finance,Financial Analyst,Fredericksburg,100101,,Yes,Yes,,2020-02-10,,Active
+100140,Linda,Foster,Employee,Human Resources,HR Generalist,Fredericksburg,100100,,Yes,Yes,,2018-04-23,,Active
+100150,Jason,Wright,Employee,Contracts,Contracts Manager,Chantilly,100100,,Yes,Yes,,2019-10-07,,Active
+100160,Tyler,Nguyen,Employee,IT,Helpdesk Technician,Fredericksburg,100110,,Yes,Yes,,2024-01-08,,Active
+100170,Monica,Hayes,Employee,Security,Security Analyst,Fredericksburg,100100,,Yes,Yes,,2023-05-22,,Active
+200100,Carlos,Mendes,Subcontractor,Engineering,Contract Software Engineer,Dahlgren,100103,Radar,Yes,Yes,Yes,2026-04-01,2027-03-31,Active
+200101,Erin,Walsh,Subcontractor,Engineering,Contract Test Engineer,Chantilly,100104,Satellite,Yes,Yes,Yes,2026-01-05,2026-09-30,Active
+100201,Yusuf,Rogers,Employee,Engineering,Hardware Engineer,Chantilly,100102,Radar,Yes,Yes,Yes,2026-01-13,,Active
+100202,Billy,James,Employee,Engineering,Hardware Engineer,Dahlgren,100102,Shipboard,Yes,Yes,Yes,2024-06-03,,Active
+100203,Aaron,Price,Employee,Engineering,Software Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,Yes,2020-03-29,,Active
+100204,Alexis,Campbell,Employee,Engineering,RF Engineer,Dahlgren,100102,Shipboard,Yes,Yes,Yes,2023-07-02,,Active
+100205,Jack,Gibson,Employee,Finance,Accounts Payable Clerk,Fredericksburg,100101,,Yes,Yes,,2019-08-22,2026-10-07,Terminated
+100206,Christina,Ellis,Employee,Finance,Accountant,Fredericksburg,100101,,Yes,Yes,,2023-03-25,,Active
+100207,Kevin,Chavez,Employee,Engineering,Software Engineer,Chantilly,100102,Shipboard,Yes,Yes,Yes,2020-11-13,,Active
+100208,Charlotte,Rivera,Employee,Security,Security Specialist,Dahlgren,100170,,Yes,Yes,,2019-06-28,,Active
+100209,Justin,Rice,Employee,Engineering,Software Engineer,Chantilly,100102,Shipboard,No,Yes,Yes,2026-06-12,,Active
+100210,Alan,Cooper,Employee,Engineering,Software Engineer,Fredericksburg,100102,Radar,Yes,Yes,Yes,2026-06-19,,Active
+100211,Grace,Rodriguez,Employee,IT,Helpdesk Technician,Chantilly,100110,,Yes,Yes,,2019-02-10,,Active
+100212,Judy,Johnston,Employee,Engineering,Systems Engineer,Dahlgren,100102,Radar,Yes,Yes,Yes,2016-05-19,,Active
+100213,Kelly,Alexander,Employee,Engineering,Software Engineer,Fredericksburg,100102,Radar,Yes,Yes,Yes,2023-04-22,,Active
+200201,Omar,Kennedy,Subcontractor,Engineering,Contract Test Engineer,Chantilly,100103,Radar,Yes,Yes,No,2021-05-28,2027-04-10,Active
+100214,Natalie,Duncan,Employee,Engineering,RF Engineer,Dahlgren,100102,Radar,Yes,Yes,No,2024-05-01,,Active
+100215,Arjun,Bennett,Employee,Engineering,Test Engineer,Chantilly,100102,Radar,Yes,Yes,Yes,2021-05-10,,Active
+100216,Susan,Alexander,Employee,Engineering,Systems Engineer,Dahlgren,100102,Satellite,Yes,Yes,Yes,2026-06-10,,Active
+100217,Michelle,Johnson,Employee,Engineering,Test Engineer,Fredericksburg,100102,Radar,Yes,Yes,Yes,2022-06-22,,Active
+100218,Kelly,Hansen,Employee,Engineering,Hardware Engineer,Fredericksburg,100102,,Yes,Yes,,2021-10-17,,Active
+100219,Linda,Simpson,Employee,Contracts,Contracts Administrator,Dahlgren,100150,,Yes,Yes,,2019-06-25,,Active
+100220,Benjamin,Henderson,Employee,Engineering,Hardware Engineer,Chantilly,100102,Radar,Yes,Yes,Yes,2019-01-08,,Active
+100221,Juan,Okafor,Employee,Engineering,Hardware Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,No,2022-08-03,,Active
+100222,Kathleen,Boyd,Employee,Engineering,Hardware Engineer,Fredericksburg,100102,Satellite,Yes,Yes,Yes,2017-07-25,,Active
+100223,Adam,Hayes,Employee,Contracts,Contracts Specialist,Chantilly,100150,,Yes,Yes,,2025-07-01,,Active
+100224,Henry,Sullivan,Employee,Engineering,Test Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,Yes,2024-05-20,,Active
+200202,Zachary,Wagner,Subcontractor,Engineering,Contract Software Engineer,Dahlgren,100105,Shipboard,Yes,Yes,Yes,2024-04-26,2027-04-19,Active
+100225,Judy,Shah,Employee,Engineering,Test Engineer,Fredericksburg,100102,Satellite,Yes,Yes,Yes,2022-05-12,,Active
+100226,Donald,King,Employee,Contracts,Contracts Administrator,Chantilly,100150,,Yes,Yes,,2022-10-10,,Active
+200203,Debra,Morris,Subcontractor,Engineering,Contract Software Engineer,Fredericksburg,100104,Satellite,Yes,Yes,Yes,2020-10-11,2027-12-22,Active
+100227,Tariq,Shaw,Employee,Engineering,Hardware Engineer,Chantilly,100102,Shipboard,Yes,Yes,Yes,2017-10-24,,Active
+100228,Zachary,Meyer,Employee,Program Management,Program Manager,Fredericksburg,100100,Satellite,Yes,Yes,Yes,2019-11-05,,Active
+100229,Sophia,Cruz,Employee,Security,Facility Security Officer,Fredericksburg,100170,,Yes,Yes,,2020-09-02,,Active
+100230,Hiroshi,Stephens,Employee,IT,Network Engineer,Fredericksburg,100110,,Yes,Yes,,2021-02-12,,Active
+100231,Adam,Hart,Employee,Finance,Accounts Payable Clerk,Chantilly,100101,,Yes,Yes,,2024-02-02,,Active
+100232,Grace,Perez,Employee,Human Resources,HR Generalist,Chantilly,100140,,Yes,Yes,,2020-07-06,,Active
+200204,Samantha,Smith,Subcontractor,Engineering,Contract Systems Engineer,Fredericksburg,100104,Satellite,Yes,Yes,Yes,2022-11-05,2027-04-24,Active
+100233,Gloria,Ward,Employee,Engineering,Test Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,Yes,2025-07-30,,Active
+200205,Julie,Warren,Subcontractor,Engineering,Contract Software Engineer,Fredericksburg,100105,Shipboard,Yes,Yes,Yes,2023-07-13,2027-12-08,Active
+100234,George,Richards,Employee,Engineering,Software Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,Yes,2025-05-14,,Active
+100235,Kathleen,Rice,Employee,IT,Network Engineer,Chantilly,100110,,Yes,Yes,,2019-11-29,,Active
+100236,Karen,Coleman,Employee,Engineering,Software Engineer,Chantilly,100102,Satellite,Yes,Yes,No,2022-01-26,,Active
+100237,Andre,Berry,Employee,Security,Facility Security Officer,Dahlgren,100170,,Yes,Yes,,2017-08-16,,Active
+100238,Peter,Cook,Employee,Human Resources,HR Specialist,Dahlgren,100140,,Yes,Yes,,2019-04-12,,Active
+100239,Gregory,Fisher,Employee,Engineering,Software Engineer,Chantilly,100102,Shipboard,Yes,Yes,Yes,2022-10-17,,Active
+100240,Gabriel,Ray,Employee,Engineering,RF Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,Yes,2024-09-10,,Active
+100241,Wei,Ward,Employee,Finance,Financial Analyst,Chantilly,100101,,Yes,Yes,,2022-11-27,,Active
+100242,Megan,Miller,Employee,Security,Security Analyst,Dahlgren,100170,,Yes,Yes,,2024-04-18,,Active
+100243,Jordan,Diaz,Employee,Engineering,Software Engineer,Chantilly,100102,Satellite,Yes,Yes,No,2019-01-14,,Active
+100244,Anthony,Kelley,Employee,Engineering,Test Engineer,Dahlgren,100102,Satellite,No,Yes,Yes,2021-05-27,,Active
+100245,Willie,Powell,Employee,Engineering,Test Engineer,Fredericksburg,100102,Satellite,Yes,Yes,Yes,2019-02-08,,Active
+100246,Katherine,Watson,Employee,Contracts,Contracts Specialist,Fredericksburg,100150,,Yes,Yes,,2020-08-07,,Active
+100247,Donna,Robertson,Employee,Program Management,Program Manager,Fredericksburg,100100,Shipboard,Yes,Yes,Yes,2021-05-04,,Active
+200206,Christian,Flores,Subcontractor,Engineering,Contract Test Engineer,Fredericksburg,100102,,Yes,Yes,,2019-08-13,2027-11-08,Active
+100248,Noah,Bryant,Employee,Security,Security Analyst,Fredericksburg,100170,,Yes,Yes,,2021-11-17,,Active
+100249,Jeffrey,Hawkins,Employee,Human Resources,HR Specialist,Fredericksburg,100140,,Yes,Yes,,2025-01-07,,Active
+100250,Jeffrey,Chavez,Employee,Program Management,Program Manager,Chantilly,100100,Radar,Yes,Yes,Yes,2025-09-01,,Active
+100251,Emily,Richards,Employee,Contracts,Contracts Specialist,Chantilly,100150,,Yes,Yes,,2021-05-07,,Active
+200207,Amber,Burns,Subcontractor,Engineering,Contract Test Engineer,Dahlgren,100104,Satellite,Yes,Yes,Yes,2017-08-14,2027-08-20,Active
+100252,Evelyn,Dunn,Employee,Engineering,Software Engineer,Dahlgren,100102,Satellite,Yes,Yes,Yes,2016-08-15,,Active
+100253,Linda,Kelley,Employee,Program Management,Deputy Program Manager,Fredericksburg,100100,Shipboard,Yes,Yes,Yes,2025-03-14,,Active
+100254,Jose,Guzman,Employee,Program Management,Program Manager,Chantilly,100100,Shipboard,Yes,Yes,Yes,2018-07-19,,Active
+100255,Imani,Wells,Employee,Human Resources,HR Specialist,Chantilly,100140,,Yes,Yes,,2019-12-31,,Active
+100256,Andre,Jenkins,Employee,Engineering,Hardware Engineer,Fredericksburg,100102,,Yes,Yes,,2016-03-08,,Active
+200208,Dylan,Kumar,Subcontractor,Engineering,Contract Systems Engineer,Fredericksburg,100105,Shipboard,Yes,Yes,Yes,2021-05-22,2027-11-06,Active
+100257,Joan,Murphy,Employee,Contracts,Contracts Specialist,Chantilly,100150,,Yes,Yes,,2026-07-24,,Active
+100258,Brandon,Williams,Employee,Program Management,Program Manager,Dahlgren,100100,Satellite,Yes,Yes,Yes,2016-03-01,,Active
+100259,Jesse,Thomas,Employee,Engineering,RF Engineer,Fredericksburg,100102,Satellite,Yes,Yes,Yes,2019-07-01,,Active
+100260,Joyce,Alvarez,Employee,Engineering,Systems Engineer,Dahlgren,100102,Shipboard,Yes,Yes,Yes,2022-05-02,,Active
+100261,Patricia,Sato,Employee,Engineering,RF Engineer,Chantilly,100102,Shipboard,Yes,Yes,Yes,2026-07-03,,Active
+100262,Heather,Dixon,Employee,Engineering,Software Engineer,Dahlgren,100102,Satellite,Yes,Yes,Yes,2026-09-14,,Active
+100263,Nancy,Gonzalez,Employee,IT,Helpdesk Technician,Chantilly,100110,,Yes,Yes,,2018-02-15,,Active
+200209,Teresa,Myers,Subcontractor,Engineering,Contract Test Engineer,Dahlgren,100104,Satellite,Yes,Yes,Yes,2023-08-12,2027-01-31,Active
+200210,Lucia,Scott,Subcontractor,Engineering,Contract Software Engineer,Dahlgren,100104,Satellite,Yes,Yes,Yes,2019-05-21,2027-09-01,Active
+100264,Carl,Phillips,Employee,Contracts,Contracts Administrator,Fredericksburg,100150,,Yes,Yes,,2018-09-25,,Active
+100265,Nicholas,Ross,Employee,Engineering,Systems Engineer,Chantilly,100102,Radar,Yes,Yes,Yes,2016-01-14,,Active
+100266,Andre,Hoffman,Employee,Engineering,Hardware Engineer,Fredericksburg,100102,Radar,Yes,Yes,Yes,2026-09-12,,Active
+100267,Diana,Perez,Employee,Engineering,RF Engineer,Dahlgren,100102,,Yes,Yes,,2024-03-24,,Active
+100268,Richard,Cooper,Employee,Human Resources,Recruiter,Chantilly,100140,,Yes,Yes,,2023-10-13,,Active
+100269,Nathan,Howard,Employee,Program Management,Program Manager,Dahlgren,100100,Radar,Yes,Yes,Yes,2021-12-26,,Active
+200211,Darius,Tanaka,Subcontractor,Engineering,Contract Test Engineer,Chantilly,100103,Radar,Yes,Yes,Yes,2022-01-26,2027-09-30,Active
+100270,Emily,Asante,Employee,Security,Security Analyst,Chantilly,100170,,Yes,Yes,,2017-05-02,,Active
+200212,Dylan,Cole,Subcontractor,Engineering,Contract Software Engineer,Fredericksburg,100104,Satellite,Yes,Yes,Yes,2018-10-27,2027-06-19,Active
+100271,Mei,Alvarez,Employee,Contracts,Contracts Specialist,Dahlgren,100150,,Yes,Yes,,2024-12-20,,Active
+100272,Billy,Nakamura,Employee,IT,Network Engineer,Dahlgren,100110,,Yes,Yes,,2020-08-14,,Active
+200213,Imani,Delgado,Subcontractor,Engineering,Contract Systems Engineer,Chantilly,100105,Shipboard,Yes,Yes,Yes,2022-12-15,2027-10-09,Active
+100273,Kyle,Marshall,Employee,IT,Helpdesk Technician,Fredericksburg,100110,,Yes,Yes,,2019-10-07,,Active
+100274,Jada,West,Employee,Engineering,Test Engineer,Dahlgren,100102,Satellite,No,Yes,Yes,2019-09-30,,Active
+100275,Logan,Foster,Employee,Engineering,Hardware Engineer,Chantilly,100102,Shipboard,Yes,Yes,Yes,2023-12-28,,Active
+200214,Kayla,Lee,Subcontractor,Engineering,Contract Software Engineer,Fredericksburg,100103,Radar,Yes,Yes,Yes,2019-09-18,2027-11-02,Active
+100276,Brittany,Johnston,Employee,Engineering,RF Engineer,Dahlgren,100102,Radar,Yes,Yes,Yes,2022-04-11,,Active
+100277,Judith,Schmidt,Employee,IT,Systems Administrator,Fredericksburg,100110,,Yes,Yes,,2017-12-10,,Active
+100278,Roger,Wallace,Employee,Finance,Accountant,Dahlgren,100101,,Yes,Yes,,2026-08-30,,Active
+100279,Victoria,Mitchell,Employee,Engineering,Hardware Engineer,Dahlgren,100102,Satellite,Yes,Yes,Yes,2016-08-18,,Active
+100280,Sofia,Hill,Employee,Engineering,Systems Engineer,Fredericksburg,100102,Radar,Yes,Yes,Yes,2018-09-25,,Active
+100281,Carol,Wilson,Employee,Engineering,Systems Engineer,Chantilly,100102,Satellite,No,Yes,Yes,2025-07-24,,Active
+100282,Gabriel,Davis,Employee,Security,Facility Security Officer,Fredericksburg,100170,,Yes,Yes,,2021-07-21,,Active
+100283,Cynthia,Hughes,Employee,Security,Security Analyst,Fredericksburg,100170,,Yes,Yes,,2016-02-29,2026-10-07,Terminated
+100284,Megan,Long,Employee,Engineering,RF Engineer,Chantilly,100102,Shipboard,Yes,Yes,Yes,2023-02-26,,Active
+100285,Randy,Delgado,Employee,IT,Helpdesk Technician,Dahlgren,100110,,Yes,Yes,,2022-09-28,,Active
+200215,Harold,Lopez,Subcontractor,Engineering,Contract Systems Engineer,Fredericksburg,100103,Radar,Yes,Yes,Yes,2016-04-14,2027-04-05,Active
+100286,Patricia,Gonzalez,Employee,Engineering,Test Engineer,Dahlgren,100102,Radar,Yes,Yes,Yes,2025-09-30,,Active
+100287,Noah,Schmidt,Employee,Engineering,Hardware Engineer,Dahlgren,100102,Shipboard,Yes,Yes,Yes,2016-07-03,,Active
+100288,Adam,Knight,Employee,Finance,Accountant,Dahlgren,100101,,Yes,Yes,,2019-01-14,,Active
+100289,Kyle,Garza,Employee,IT,Helpdesk Technician,Chantilly,100110,,Yes,Yes,,2017-03-03,,Active
+100290,Amara,Boateng,Employee,Security,Security Analyst,Dahlgren,100170,,Yes,Yes,,2023-09-06,,Active
+200216,Andre,Ford,Subcontractor,Engineering,Contract Systems Engineer,Fredericksburg,100105,Shipboard,Yes,Yes,No,2023-07-22,2026-10-06,Active
+100291,Denise,Ortiz,Employee,Engineering,Test Engineer,Fredericksburg,100105,,Yes,Yes,,2021-02-05,,Active
+100292,Michael,Kelly,Employee,Engineering,Hardware Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,Yes,2023-11-21,,Active
+100293,Brittany,Gomez,Employee,Engineering,RF Engineer,Chantilly,100102,Satellite,Yes,No,Yes,2023-08-05,,Active
+100294,James,Rahman,Employee,Engineering,Test Engineer,Chantilly,100102,Shipboard,Yes,Yes,Yes,2016-10-18,,Active
+100295,Benjamin,Alexander,Employee,IT,Systems Administrator,Fredericksburg,100110,,Yes,Yes,,2016-12-19,,Active
+100296,Paul,Bradley,Employee,Finance,Accounts Payable Clerk,Chantilly,100101,,Yes,Yes,,2020-04-03,,Active
+100297,Andrea,Thompson,Employee,Engineering,Software Engineer,Fredericksburg,100102,Radar,Yes,Yes,Yes,2022-03-04,,Active
+100298,Jerry,Long,Employee,Contracts,Contracts Administrator,Chantilly,100150,,Yes,Yes,,2023-01-19,,Active
+100299,Martha,Miller,Employee,Engineering,Test Engineer,Chantilly,100102,Shipboard,Yes,Yes,No,2026-04-10,,Active
+100300,Kelly,Rogers,Employee,Engineering,Systems Engineer,Dahlgren,100102,,Yes,Yes,,2023-06-01,,Active
+100301,Andrew,Olson,Employee,IT,Network Engineer,Dahlgren,100110,,Yes,Yes,,2025-04-25,,Active
+100302,Austin,Harrison,Employee,Finance,Financial Analyst,Dahlgren,100101,,Yes,Yes,,2021-07-27,,Active
+100303,Janice,Snyder,Employee,Program Management,Program Manager,Fredericksburg,100100,Shipboard,Yes,Yes,Yes,2025-11-08,,Active
+100304,Sandra,Carpenter,Employee,IT,Systems Administrator,Dahlgren,100110,,Yes,Yes,,2016-07-12,,Active
+200217,Fatima,Carpenter,Subcontractor,Engineering,Contract Test Engineer,Dahlgren,100104,Satellite,Yes,Yes,Yes,2019-04-11,2027-08-26,Active
+100305,Aisha,Rice,Employee,Engineering,Hardware Engineer,Chantilly,100102,Shipboard,No,Yes,Yes,2022-10-28,,Active
+100306,Maria,Martin,Employee,Engineering,Systems Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,Yes,2020-11-09,,Active
+100307,Jonathan,Hawkins,Employee,IT,Helpdesk Technician,Fredericksburg,100110,,Yes,Yes,,2025-05-31,,Active
+100308,Billy,Weaver,Employee,Finance,Accountant,Dahlgren,100101,,Yes,Yes,,2026-02-21,,Active
+100309,Michael,Hernandez,Employee,Engineering,Software Engineer,Chantilly,100102,Radar,No,Yes,Yes,2023-03-07,,Active
+100310,Nicole,Reed,Employee,Engineering,Systems Engineer,Dahlgren,100102,Shipboard,Yes,Yes,Yes,2025-03-06,,Active
+200218,Tyler,Ross,Subcontractor,Engineering,Contract Software Engineer,Fredericksburg,100102,,Yes,Yes,,2018-05-16,2027-07-23,Active
+200219,Amara,Coleman,Subcontractor,Engineering,Contract Systems Engineer,Dahlgren,100102,,Yes,Yes,,2020-05-21,2027-04-29,Active
+100311,Pamela,Graham,Employee,Contracts,Contracts Specialist,Chantilly,100150,,Yes,Yes,,2016-01-05,,Active
+200220,Timothy,Lewis,Subcontractor,Engineering,Contract Software Engineer,Dahlgren,100105,Shipboard,Yes,Yes,Yes,2024-10-06,2027-03-14,Active
+100312,Eric,Henry,Employee,Engineering,Test Engineer,Dahlgren,100102,Satellite,Yes,Yes,Yes,2019-03-20,,Active
+100313,Andrew,Kumar,Employee,Program Management,Program Analyst,Chantilly,100100,Satellite,Yes,Yes,Yes,2022-05-13,,Active
+100314,Noah,White,Employee,Contracts,Contracts Administrator,Chantilly,100150,,Yes,Yes,,2026-01-02,,Active
+100315,Timothy,Elliott,Employee,Human Resources,HR Generalist,Dahlgren,100140,,Yes,Yes,,2023-01-20,,Active
+100316,Lawrence,Boateng,Employee,Human Resources,HR Specialist,Dahlgren,100140,,Yes,Yes,,2021-08-31,,Active
+100317,Mary,Thompson,Employee,Engineering,Systems Engineer,Chantilly,100102,Satellite,Yes,Yes,Yes,2017-11-23,,Active
+100318,Laura,Moore,Employee,IT,Helpdesk Technician,Dahlgren,100110,,Yes,Yes,,2019-07-29,,Active
+100319,Joshua,Gibson,Employee,Contracts,Contracts Administrator,Fredericksburg,100150,,Yes,Yes,,2023-11-18,,Active
+100320,Julie,Brooks,Employee,Engineering,Hardware Engineer,Dahlgren,100102,Shipboard,Yes,Yes,No,2020-05-21,,Active
+100321,Benjamin,Mcdonald,Employee,Finance,Accountant,Chantilly,100101,,Yes,Yes,,2020-06-26,,Active
+100322,Jack,Brown,Employee,Engineering,Software Engineer,Chantilly,100102,Satellite,Yes,Yes,Yes,2023-02-06,,Active
+100323,Jeremy,Howard,Employee,Engineering,Hardware Engineer,Dahlgren,100102,Satellite,Yes,Yes,Yes,2025-04-29,,Active
+100324,Madison,West,Employee,Engineering,RF Engineer,Dahlgren,100102,Radar,Yes,Yes,Yes,2023-07-06,,Active
+100325,Simone,Matthews,Employee,Engineering,RF Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,No,2020-08-30,,Active
+200221,Simone,Ruiz,Subcontractor,Engineering,Contract Systems Engineer,Dahlgren,100102,,Yes,Yes,,2022-02-04,2027-06-17,Active
+100326,Richard,Duncan,Employee,IT,Systems Administrator,Dahlgren,100110,,Yes,Yes,,2021-06-27,2026-10-07,Terminated
+200222,Pamela,Turner,Subcontractor,Engineering,Contract Software Engineer,Chantilly,100102,,Yes,Yes,,2025-12-03,2026-10-06,Active
+100327,Chloe,Shaw,Employee,Engineering,Software Engineer,Dahlgren,100102,Satellite,Yes,Yes,Yes,2020-02-26,,Active
+200223,Tyler,Simmons,Subcontractor,Engineering,Contract Systems Engineer,Chantilly,100105,Shipboard,Yes,Yes,Yes,2026-05-28,2027-09-17,Active
+200224,Simone,Murray,Subcontractor,Engineering,Contract Software Engineer,Dahlgren,100105,Shipboard,Yes,Yes,Yes,2018-02-17,2027-12-08,Active
+100328,Marie,Burns,Employee,Program Management,Program Manager,Chantilly,100100,Radar,Yes,Yes,Yes,2019-08-25,,Active
+100329,Alan,Wagner,Employee,Engineering,RF Engineer,Dahlgren,100102,Satellite,No,Yes,Yes,2023-12-23,,Active
+100330,Ngozi,Pierce,Employee,IT,Helpdesk Technician,Fredericksburg,100110,,Yes,Yes,,2018-02-22,,Active
+100331,Elijah,Gonzalez,Employee,Engineering,Software Engineer,Chantilly,100102,Radar,Yes,Yes,Yes,2016-10-07,,Active
+100332,Elijah,Griffin,Employee,IT,Network Engineer,Dahlgren,100110,,Yes,Yes,,2019-01-10,,Active
+100333,Evelyn,Andrews,Employee,Program Management,Program Analyst,Chantilly,100100,Shipboard,Yes,Yes,Yes,2025-09-13,,Active
+200225,Peter,Dunn,Subcontractor,Engineering,Contract Systems Engineer,Chantilly,100105,Shipboard,Yes,Yes,Yes,2024-07-07,2027-02-04,Active
+100334,Jean,Chen,Employee,Engineering,RF Engineer,Chantilly,100102,Shipboard,Yes,Yes,Yes,2018-07-19,,Active
+100335,Deborah,Cox,Employee,Engineering,Systems Engineer,Chantilly,100102,Satellite,Yes,Yes,No,2016-10-06,,Active
+100336,Vincent,Hawkins,Employee,Engineering,RF Engineer,Chantilly,100102,,Yes,Yes,,2022-01-31,,Active
+100337,Alan,Phillips,Employee,Engineering,Software Engineer,Fredericksburg,100102,Radar,Yes,Yes,Yes,2017-02-02,,Active
+100338,Gabriel,Stevens,Employee,IT,Helpdesk Technician,Dahlgren,100110,,Yes,Yes,,2026-07-15,,Active
+100339,Kathleen,Ray,Employee,Program Management,Deputy Program Manager,Dahlgren,100100,Radar,Yes,Yes,Yes,2023-05-15,,Active
+100340,Stephanie,Mills,Employee,Program Management,Deputy Program Manager,Fredericksburg,100100,Radar,Yes,Yes,Yes,2018-04-15,,Active
+100341,Aisha,Mason,Employee,Engineering,Systems Engineer,Chantilly,100102,Satellite,Yes,Yes,No,2024-02-12,,Active
+100342,Stephen,Sanders,Employee,Human Resources,HR Generalist,Chantilly,100140,,Yes,Yes,,2019-08-11,,Active
+100343,Juan,Simmons,Employee,Engineering,Test Engineer,Fredericksburg,100102,Satellite,Yes,Yes,No,2024-11-24,,Active
+100344,Kimberly,Shah,Employee,Program Management,Deputy Program Manager,Chantilly,100100,Radar,Yes,Yes,Yes,2016-04-06,,Active
+100345,Omar,Adams,Employee,Engineering,Software Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,Yes,2016-10-17,,Active
+100346,Walter,Ray,Employee,Engineering,Test Engineer,Chantilly,100102,Shipboard,Yes,Yes,Yes,2018-12-05,,Active
+100347,Marcus,Berry,Employee,Contracts,Contracts Specialist,Fredericksburg,100150,,Yes,Yes,,2017-01-20,,Active
+100348,Linda,Roberts,Employee,Human Resources,Recruiter,Fredericksburg,100140,,Yes,Yes,,2025-09-03,,Active
+100349,Adam,Perkins,Employee,Engineering,RF Engineer,Chantilly,100102,Shipboard,Yes,Yes,Yes,2021-02-01,,Active
+100350,Albert,Carter,Employee,Engineering,Systems Engineer,Dahlgren,100102,Shipboard,Yes,Yes,Yes,2026-05-02,,Active
+200226,Juan,Torres,Subcontractor,Engineering,Contract Software Engineer,Fredericksburg,100105,Shipboard,Yes,Yes,Yes,2025-07-08,2027-07-10,Active
+200227,Ashley,Cruz,Subcontractor,Engineering,Contract Systems Engineer,Fredericksburg,100105,Shipboard,Yes,Yes,Yes,2022-02-06,2027-11-03,Active
+100351,Vincent,Henderson,Employee,Engineering,Systems Engineer,Fredericksburg,100102,Satellite,Yes,Yes,No,2021-02-08,,Active
+100352,Harold,Gutierrez,Employee,Engineering,Hardware Engineer,Chantilly,100102,Satellite,Yes,Yes,Yes,2020-01-27,,Active
+100353,Judy,Bailey,Employee,Engineering,Systems Engineer,Fredericksburg,100102,Satellite,No,Yes,Yes,2016-08-31,,Active
+100354,Jerry,Mitchell,Employee,Engineering,Systems Engineer,Dahlgren,100102,,Yes,Yes,,2026-02-26,,Active
+200228,Kenneth,Hayes,Subcontractor,Engineering,Contract Systems Engineer,Fredericksburg,100103,Radar,Yes,Yes,Yes,2025-06-01,2027-07-03,Active
+100355,Priya,Allen,Employee,Human Resources,HR Specialist,Fredericksburg,100140,,Yes,Yes,,2021-01-29,,Active
+200229,Ethan,Sanders,Subcontractor,Engineering,Contract Test Engineer,Dahlgren,100104,Satellite,Yes,Yes,Yes,2025-11-19,2027-12-30,Active
+100356,Simone,Morgan,Employee,Engineering,Software Engineer,Dahlgren,100102,Satellite,Yes,Yes,No,2024-07-24,,Active
+100357,Patricia,Williams,Employee,Human Resources,HR Generalist,Dahlgren,100140,,Yes,Yes,,2026-05-02,,Active
+200230,Madison,Henderson,Subcontractor,Engineering,Contract Systems Engineer,Chantilly,100102,,Yes,Yes,,2023-09-14,2027-09-27,Active
+100358,Laura,Crawford,Employee,Engineering,Software Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,Yes,2025-10-01,,Active
+200231,Robert,Boateng,Subcontractor,Engineering,Contract Test Engineer,Dahlgren,100104,Satellite,Yes,Yes,Yes,2018-01-26,2027-09-06,Active
+100359,Liam,Thompson,Employee,Engineering,Test Engineer,Fredericksburg,100102,Shipboard,Yes,No,Yes,2024-06-20,,Active
+100360,Marie,Turner,Employee,Human Resources,HR Specialist,Chantilly,100140,,Yes,Yes,,2024-09-24,,Active
+100361,Lucia,Carter,Employee,Engineering,Hardware Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,Yes,2017-06-20,,Active
+100362,Danielle,Campbell,Employee,Human Resources,HR Generalist,Dahlgren,100140,,Yes,Yes,,2022-10-28,,Active
+100363,Kwame,Hunt,Employee,Engineering,Software Engineer,Dahlgren,100102,Shipboard,Yes,Yes,Yes,2025-06-28,,Active
+100364,Sophia,Gutierrez,Employee,Finance,Financial Analyst,Dahlgren,100101,,Yes,Yes,,2021-03-18,,Active
+100365,Lori,Taylor,Employee,IT,Systems Administrator,Fredericksburg,100110,,Yes,Yes,,2020-04-12,,Active
+100366,Carl,Parker,Employee,Engineering,Software Engineer,Dahlgren,100102,Shipboard,Yes,Yes,Yes,2021-04-26,,Active
+100367,Noah,Knight,Employee,Security,Security Analyst,Fredericksburg,100170,,Yes,Yes,,2020-04-30,,Active
+100368,Arjun,Martinez,Employee,Engineering,Test Engineer,Dahlgren,100102,Radar,Yes,Yes,Yes,2022-05-13,,Active
+200232,Billy,Okafor,Subcontractor,Engineering,Contract Systems Engineer,Dahlgren,100104,Satellite,Yes,Yes,Yes,2016-11-23,2027-09-04,Active
+100369,Harold,Brooks,Employee,Human Resources,HR Generalist,Chantilly,100140,,Yes,Yes,,2026-08-25,,Active
+100370,Kimberly,Ruiz,Employee,Engineering,RF Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,Yes,2020-06-04,,Active
+100371,Christopher,Cole,Employee,Engineering,RF Engineer,Fredericksburg,100102,Radar,Yes,Yes,Yes,2023-01-08,,Active
+100372,Jean,Vargas,Employee,Engineering,Software Engineer,Chantilly,100102,,Yes,No,,2016-11-18,,Active
+200233,Mary,Collins,Subcontractor,Engineering,Contract Software Engineer,Fredericksburg,100105,Shipboard,Yes,Yes,Yes,2021-01-07,2027-08-19,Active
+100373,Abigail,Evans,Employee,Contracts,Contracts Specialist,Chantilly,100150,,Yes,Yes,,2023-06-04,2026-10-07,Terminated
+100374,Isabella,Jordan,Employee,Engineering,Test Engineer,Chantilly,100102,Shipboard,Yes,Yes,Yes,2021-06-15,,Active
+100375,Matthew,Hill,Employee,Program Management,Deputy Program Manager,Dahlgren,100100,Radar,Yes,Yes,Yes,2026-03-07,,Active
+100376,Sandra,Hansen,Employee,Finance,Accounts Payable Clerk,Fredericksburg,100101,,Yes,Yes,,2025-04-29,,Active
+100377,Michael,Harris,Employee,Engineering,Software Engineer,Fredericksburg,100102,,Yes,Yes,,2017-03-31,,Active
+100378,Thomas,Hunter,Employee,Engineering,Systems Engineer,Fredericksburg,100102,Radar,Yes,Yes,Yes,2026-07-09,,Active
+200234,Elizabeth,Nelson,Subcontractor,Engineering,Contract Systems Engineer,Dahlgren,100103,Radar,Yes,Yes,No,2026-07-03,2027-11-18,Active
+100379,Tariq,Carter,Employee,Engineering,Hardware Engineer,Fredericksburg,100102,Shipboard,No,Yes,Yes,2017-09-20,,Active
+100380,Joyce,Salazar,Employee,Finance,Accountant,Fredericksburg,100101,,Yes,Yes,,2019-07-12,,Active
+200235,Amber,Ray,Subcontractor,Engineering,Contract Systems Engineer,Chantilly,100103,Radar,Yes,Yes,Yes,2023-10-15,2027-08-02,Active
+100381,Debra,Kelley,Employee,Engineering,Hardware Engineer,Dahlgren,100102,Radar,Yes,Yes,Yes,2021-10-12,,Active
+100382,Shirley,Elliott,Employee,Program Management,Program Manager,Dahlgren,100100,Shipboard,Yes,Yes,Yes,2020-03-24,,Active
+100383,Arjun,Gardner,Employee,Program Management,Program Analyst,Dahlgren,100100,Satellite,Yes,Yes,Yes,2022-06-27,,Active
+100384,Mei,Jimenez,Employee,Engineering,Test Engineer,Chantilly,100102,Radar,Yes,Yes,No,2016-06-23,,Active
+100385,Amber,Shah,Employee,IT,Helpdesk Technician,Dahlgren,100110,,Yes,Yes,,2022-11-02,,Active
+100386,Ronald,Hayes,Employee,Program Management,Deputy Program Manager,Fredericksburg,100100,Shipboard,Yes,Yes,Yes,2022-07-10,,Active
+100387,Kimberly,Ortiz,Employee,Engineering,Systems Engineer,Dahlgren,100102,Satellite,Yes,No,Yes,2021-12-11,,Active
+100388,Brenda,Garcia,Employee,Finance,Financial Analyst,Chantilly,100101,,Yes,Yes,,2021-06-02,,Active
+100389,Christina,Snyder,Employee,Engineering,RF Engineer,Dahlgren,100102,,Yes,Yes,,2021-07-16,,Active
+100390,Evelyn,Duncan,Employee,Security,Security Analyst,Dahlgren,100170,,Yes,Yes,,2026-03-25,,Active
+100391,Ashley,Patel,Employee,Program Management,Program Manager,Dahlgren,100100,Shipboard,Yes,Yes,Yes,2025-10-15,,Active
+100392,Jennifer,King,Employee,Program Management,Deputy Program Manager,Dahlgren,100100,Shipboard,Yes,Yes,Yes,2024-10-24,,Active
+100393,Patricia,Murray,Employee,Program Management,Deputy Program Manager,Fredericksburg,100100,Shipboard,Yes,Yes,Yes,2018-09-19,,Active
+100394,Jennifer,Matthews,Employee,Engineering,Software Engineer,Dahlgren,100102,Satellite,Yes,Yes,No,2022-09-25,2026-10-07,Terminated
+100395,Simone,Shah,Employee,IT,Systems Administrator,Chantilly,100110,,Yes,Yes,,2025-08-03,,Active
+100396,Sofia,Morales,Employee,IT,Network Engineer,Dahlgren,100110,,Yes,Yes,,2020-08-21,,Active
+100397,Omar,Flores,Employee,Engineering,Systems Engineer,Dahlgren,100102,Shipboard,Yes,Yes,Yes,2026-09-08,,Active
+100398,Vincent,Harris,Employee,Engineering,Hardware Engineer,Fredericksburg,100102,,Yes,Yes,,2023-07-07,,Active
+100399,Nia,Dunn,Employee,Engineering,Systems Engineer,Fredericksburg,100102,,Yes,Yes,,2018-10-24,,Active
+100400,Melissa,Ford,Employee,Finance,Accountant,Dahlgren,100101,,Yes,Yes,,2020-01-05,,Active
+100401,Matthew,Morgan,Employee,Engineering,Software Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,No,2017-01-08,,Active
+100402,Hannah,Lopez,Employee,Contracts,Contracts Administrator,Dahlgren,100150,,Yes,Yes,,2026-05-18,,Active
+200236,John,Owens,Subcontractor,Engineering,Contract Software Engineer,Dahlgren,100104,Satellite,Yes,Yes,Yes,2017-05-18,2027-12-23,Active
+100403,Anthony,Powell,Employee,Engineering,Software Engineer,Dahlgren,100102,Satellite,Yes,Yes,Yes,2023-06-07,,Active
+100404,Simone,Rivera,Employee,Security,Security Analyst,Chantilly,100170,,Yes,Yes,,2017-06-25,,Active
+100405,Rebecca,Ramirez,Employee,Engineering,Test Engineer,Fredericksburg,100102,Satellite,Yes,Yes,Yes,2026-01-05,,Active
+100406,Ronald,Mendez,Employee,Engineering,RF Engineer,Dahlgren,100105,,Yes,Yes,,2021-09-23,,Active
+100407,Arthur,Scott,Employee,Engineering,Systems Engineer,Dahlgren,100102,Satellite,Yes,Yes,Yes,2019-10-30,,Active
+100408,Scott,Ramos,Employee,IT,Systems Administrator,Fredericksburg,100110,,Yes,Yes,,2023-07-03,,Active
+100409,Harold,Boateng,Employee,Engineering,Test Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,Yes,2016-05-19,,Active
+100410,Christian,Coleman,Employee,Engineering,Hardware Engineer,Fredericksburg,100102,Satellite,Yes,Yes,Yes,2025-02-06,,Active
+100411,Melissa,Rice,Employee,Human Resources,HR Generalist,Dahlgren,100140,,Yes,Yes,,2025-10-28,,Active
+100412,Emma,Foster,Employee,Engineering,Software Engineer,Dahlgren,100102,Shipboard,Yes,Yes,Yes,2022-10-30,,Active
+100413,Gary,Carpenter,Employee,Finance,Accountant,Fredericksburg,100101,,Yes,Yes,,2024-01-08,,Active
+100414,Alice,Rodriguez,Employee,IT,Helpdesk Technician,Chantilly,100110,,Yes,Yes,,2017-07-09,,Active
+100415,Mei,Soto,Employee,Security,Security Analyst,Dahlgren,100170,,Yes,Yes,,2021-07-11,,Active
+100416,Carol,Snyder,Employee,Security,Facility Security Officer,Dahlgren,100170,,Yes,Yes,,2023-09-22,,Active
+100417,William,Wallace,Employee,Finance,Accounts Payable Clerk,Fredericksburg,100101,,Yes,Yes,,2019-11-08,,Active
+100418,Janice,Carpenter,Employee,Program Management,Deputy Program Manager,Dahlgren,100100,Satellite,Yes,Yes,Yes,2016-07-21,,Active
+100419,Kathleen,Hudson,Employee,Contracts,Contracts Administrator,Dahlgren,100150,,Yes,Yes,,2024-07-22,,Active
+100420,Paul,Mills,Employee,Finance,Financial Analyst,Fredericksburg,100101,,Yes,Yes,,2020-03-31,,Active
+100421,Teresa,Evans,Employee,Engineering,Systems Engineer,Dahlgren,100102,Satellite,Yes,No,Yes,2016-06-22,,Active
+100422,Harold,Taylor,Employee,IT,Network Engineer,Chantilly,100110,,Yes,Yes,,2016-04-30,,Active
+100423,Christina,Howard,Employee,Contracts,Contracts Administrator,Chantilly,100150,,Yes,Yes,,2023-03-11,,Active
+100424,Donna,Nelson,Employee,Engineering,Systems Engineer,Fredericksburg,100102,Radar,No,Yes,No,2017-11-25,,Active
+100425,Steven,Morgan,Employee,Finance,Accountant,Dahlgren,100101,,Yes,Yes,,2016-02-06,,Active
+100426,Timothy,Turner,Employee,Engineering,Software Engineer,Chantilly,100102,,Yes,Yes,,2016-01-16,,Active
+100427,Adam,Hamilton,Employee,Human Resources,HR Specialist,Chantilly,100140,,Yes,Yes,,2022-08-02,,Active
+100428,Gerald,Berry,Employee,Program Management,Program Analyst,Dahlgren,100100,Shipboard,Yes,Yes,Yes,2021-07-31,,Active
+100429,Lori,Nichols,Employee,Finance,Financial Analyst,Fredericksburg,100101,,Yes,Yes,,2021-11-15,,Active
+100430,Stephen,Willis,Employee,Engineering,RF Engineer,Fredericksburg,100102,,Yes,Yes,,2018-05-18,,Active
+100431,Melissa,Riley,Employee,Engineering,RF Engineer,Chantilly,100102,Radar,Yes,Yes,Yes,2020-03-28,,Active
+100432,Terry,Hawkins,Employee,IT,Network Engineer,Dahlgren,100110,,Yes,Yes,,2020-05-25,,Active
+100433,Stephen,Torres,Employee,Engineering,Software Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,Yes,2023-10-02,,Active
+100434,Billy,Hoffman,Employee,Engineering,Systems Engineer,Dahlgren,100102,Radar,Yes,Yes,Yes,2020-10-20,,Active
+100435,Timothy,Chavez,Employee,Finance,Accounts Payable Clerk,Dahlgren,100101,,Yes,Yes,,2017-04-20,,Active
+200237,Amara,Arnold,Subcontractor,Engineering,Contract Software Engineer,Chantilly,100103,Radar,Yes,Yes,Yes,2024-11-30,2027-11-09,Active
+100436,Gloria,Perez,Employee,IT,Systems Administrator,Chantilly,100110,,Yes,Yes,,2020-12-07,,Active
+100437,Brian,Munoz,Employee,Engineering,Systems Engineer,Chantilly,100102,Shipboard,Yes,No,Yes,2025-07-22,,Active
+100438,Teresa,Gibson,Employee,Engineering,RF Engineer,Fredericksburg,100102,Satellite,Yes,Yes,Yes,2020-01-21,,Active
+100439,Joan,Matthews,Employee,Engineering,Hardware Engineer,Fredericksburg,100102,Radar,No,Yes,Yes,2021-02-07,,Active
+100440,Danielle,Grant,Employee,Engineering,RF Engineer,Dahlgren,100102,Shipboard,Yes,Yes,Yes,2024-12-09,,Active
+100441,Abigail,Kelly,Employee,Engineering,Systems Engineer,Fredericksburg,100102,,Yes,Yes,,2017-07-16,,Active
+100442,Carolyn,Pierce,Employee,Engineering,Test Engineer,Dahlgren,100102,Radar,Yes,Yes,Yes,2020-06-04,,Active
+100443,Jason,Garcia,Employee,Engineering,Test Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,Yes,2022-09-12,,Active
+100444,Sofia,Berry,Employee,Program Management,Program Manager,Dahlgren,100100,Satellite,Yes,Yes,Yes,2018-06-20,,Active
+100445,Arthur,Rogers,Employee,Contracts,Contracts Administrator,Chantilly,100150,,Yes,Yes,,2016-01-29,,Active
+100446,Brian,Wallace,Employee,Engineering,RF Engineer,Dahlgren,100102,,Yes,Yes,,2025-01-13,,Active
+200238,Roy,Hamilton,Subcontractor,Engineering,Contract Systems Engineer,Dahlgren,100103,Radar,Yes,Yes,Yes,2026-07-04,2027-08-06,Active
+100447,Austin,Ferguson,Employee,Engineering,Systems Engineer,Fredericksburg,100102,Satellite,Yes,Yes,Yes,2022-03-31,,Active
+100448,Gregory,Simmons,Employee,Engineering,Software Engineer,Chantilly,100102,Radar,Yes,No,Yes,2021-09-19,,Active
+100449,Kathryn,Gibson,Employee,Engineering,Software Engineer,Dahlgren,100102,,Yes,Yes,,2016-10-08,,Active
+200239,Sarah,Wells,Subcontractor,Engineering,Contract Systems Engineer,Chantilly,100104,Satellite,Yes,Yes,Yes,2025-03-08,2027-06-03,Active
+100450,Mateo,Diaz,Employee,Program Management,Program Analyst,Chantilly,100100,Satellite,Yes,Yes,Yes,2025-03-07,2026-10-07,Terminated
+100451,Kevin,Stewart,Employee,Finance,Accounts Payable Clerk,Dahlgren,100101,,Yes,Yes,,2021-02-03,,Active
+100452,Chloe,Vargas,Employee,Engineering,Software Engineer,Fredericksburg,100102,Radar,Yes,Yes,Yes,2019-02-11,,Active
+100453,Kofi,Chavez,Employee,Security,Facility Security Officer,Fredericksburg,100170,,Yes,Yes,,2024-06-26,,Active
+200240,Ethan,Washington,Subcontractor,Engineering,Contract Software Engineer,Fredericksburg,100103,Radar,Yes,Yes,Yes,2026-03-30,2027-11-01,Active
+100454,John,Shaw,Employee,Security,Facility Security Officer,Dahlgren,100170,,Yes,Yes,,2025-04-07,,Active
+100455,Bruce,Powell,Employee,Engineering,Test Engineer,Fredericksburg,100102,Shipboard,Yes,Yes,Yes,2019-04-15,,Active
+100456,Alexis,Ramos,Employee,Engineering,RF Engineer,Chantilly,100102,Shipboard,Yes,Yes,Yes,2018-02-11,,Active
+100457,Megan,Scott,Employee,Finance,Financial Analyst,Dahlgren,100101,,Yes,Yes,,2023-09-09,,Active
+100458,Judith,Lawrence,Employee,Engineering,RF Engineer,Chantilly,100102,Shipboard,Yes,Yes,Yes,2022-04-15,,Active
+200241,Angela,Fox,Subcontractor,Engineering,Contract Test Engineer,Fredericksburg,100103,Radar,Yes,Yes,Yes,2019-12-12,2027-02-23,Active
+200242,Mary,Hart,Subcontractor,Engineering,Contract Test Engineer,Dahlgren,100105,Shipboard,Yes,Yes,Yes,2026-09-17,2027-05-23,Active
+100459,Kwame,Freeman,Employee,Engineering,Systems Engineer,Dahlgren,100102,Radar,Yes,Yes,Yes,2026-11-01,,Active
+100460,Eric,Hayes,Employee,Engineering,Hardware Engineer,Dahlgren,100102,Radar,Yes,Yes,Yes,2026-11-04,,Active
+200243,Marcus,Kumar,Subcontractor,Engineering,Contract Software Engineer,Chantilly,100102,,Yes,Yes,,2026-11-16,2027-05-11,Active
+100461,David,Sandoval,Employee,Security,Security Specialist,Fredericksburg,100170,,Yes,Yes,,2026-11-04,,Active
+100462,Debra,Ross,Employee,Engineering,Test Engineer,Dahlgren,100102,Radar,Yes,Yes,Yes,2026-10-13,,Active
+100463,Larry,West,Employee,Engineering,Hardware Engineer,Fredericksburg,100102,Radar,Yes,Yes,Yes,2026-11-07,,Active
+100464,Roger,Davis,Employee,Engineering,Systems Engineer,Dahlgren,100102,Shipboard,Yes,Yes,Yes,2023-08-03,2026-09-15,Terminated
+200244,Wei,Scott,Subcontractor,Engineering,Contract Systems Engineer,Chantilly,100103,Radar,Yes,Yes,Yes,2023-05-20,2026-09-16,Terminated
+100465,Arjun,Vargas,Employee,Engineering,Test Engineer,Chantilly,100102,Radar,Yes,Yes,Yes,2022-05-07,2026-09-04,Terminated
+100466,Jean,Burns,Employee,Engineering,Test Engineer,Fredericksburg,100102,Radar,No,Yes,Yes,2019-03-22,2026-09-04,Terminated
+200245,Rachel,Gordon,Subcontractor,Engineering,Contract Systems Engineer,Dahlgren,100105,Shipboard,Yes,Yes,Yes,2022-07-04,2026-09-12,Terminated
+200246,Jordan,Lawrence,Subcontractor,Engineering,Contract Test Engineer,Dahlgren,100105,Shipboard,Yes,No,Yes,2016-03-03,2026-09-17,Active
+200247,Liam,Wells,Subcontractor,Engineering,Contract Software Engineer,Chantilly,100105,Shipboard,Yes,No,Yes,2018-01-21,2026-10-05,Active
+200248,Malik,Ali,Subcontractor,Engineering,Contract Systems Engineer,Dahlgren,100103,Radar,Yes,Yes,Yes,2024-01-31,2026-09-19,Active
+200249,Lauren,Cruz,Subcontractor,Engineering,Contract Software Engineer,Dahlgren,100104,Satellite,Yes,Yes,Yes,2026-10-07,2027-04-05,Active
+200250,Matthew,Flores,Subcontractor,Engineering,Contract Test Engineer,Fredericksburg,100103,Radar,Yes,Yes,Yes,2026-10-07,2027-07-23,Active
+100480,Hiroshi,Henry,Employee,Engineering,Software Engineer,Chantilly,100102,Shipboard,Yes,Yes,Yes,2026-10-07,,Active
+100481,Rachel,Taylor,Employee,Human Resources,Recruiter,Dahlgren,100140,,Yes,Yes,,2026-11-05,,Active
+100482,Alice,Hall,Employee,Engineering,Test Engineer,Chantilly,100102,Radar,Yes,Yes,Yes,2026-10-29,,Active
+100484,Kiki,Wifey,Employee,Engineering,Systems Engineer,Chantilly,100102,Satellite,Yes,Yes,Yes,2026-10-07,,Active
